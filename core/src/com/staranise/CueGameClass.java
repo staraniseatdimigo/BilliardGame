@@ -3,47 +3,39 @@ package com.staranise;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.staranise.Basic.ObjectManager;
+import com.staranise.Basic.QueObject;
 import com.staranise.thing.Shape;
-import com.staranise.thing.Thing;
 import com.staranise.thing.Universe;
 import com.staranise.thing.Vec2;
 
 public class CueGameClass extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+    QueObject ball1;
+    QueObject ball2;
 
 	Universe u;
-	Thing t1,t2;
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+        ball1 = new QueObject("./core/assets/Ball1.png", 2.f, new Vec2(50.f, 50.f));
+        ball2 = new QueObject("./core/assets/Ball2.png", 2.f, new Vec2(50.f, 300.f));
 
 		u = new Universe();
-		t1 = new Thing(1, new Vec2(0,0), new Vec2(2,0), new Vec2(0,0));
-		t2 = new Thing(1, new Vec2(10,0.2), new Vec2(0,0), new Vec2(0,0));
 
-		t1.setShape(new Shape(1.0f));
-		t2.setShape(new Shape(1.0f));
+		ball1.setShape(new Shape(16.0f));
+		ball2.setShape(new Shape(16.0f));
 
-		u.addThing(t1);
-		u.addThing(t2);
+        ball1.setLinearSpeed(new Vec2(0.f, 50.f));
+
+		u.addThing(ball1);
+		u.addThing(ball2);
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-
-		u.flow(Gdx.graphics.getDeltaTime());
-
-		System.out.println(t1.getPosition());
-		System.out.println(t2.getPosition());
+        u.flow(Gdx.graphics.getDeltaTime());
+        ObjectManager.getInstance().Render();
 	}
 }
