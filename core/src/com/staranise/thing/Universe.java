@@ -29,6 +29,8 @@ public class Universe {
         }
     }
 
+    //하스스톤 하지마라 박유택
+
     //return null if failed
     public Thing findThing(Object id) {
         for(Thing t : things) {
