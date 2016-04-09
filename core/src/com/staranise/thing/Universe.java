@@ -64,18 +64,23 @@ public class Universe {
 
                     //v0와 v1방향(두 원 위치를 빼서 구함)으로 사이각 구한 후, v0에 구한 사이각(cos) v1 전체를 구함.
 
-                    float v0v1cos = v0.getCos(t2.getPosition().minus(t1.getPosition()));
-                    float v1Length = v0.multi(v0v1cos).getLength();
+                    Vec2 v2Direct = t2.getPosition().minus(t1.getPosition());
 
-                    Vec2 v2 = new Vec2(v1Length * v0v1cos, v1Length * Math.sqrt(1 - Math.pow(v0v1cos,2)));
+                    float v0v2cos = v0.getCos(t2.getPosition().minus(t1.getPosition()));
+                    System.out.println("------------------------------------------" + v0v2cos);
 
-                    Vec2 v1 = new Vec2(v0.x - v2.x, -v2.y);
+                    float v2Length = v0.multi(v0v2cos).getLength();
+                    System.out.println("------------------------------------------" + v2Length);
+
+                    Vec2 v2 = v2Direct.norm().multi(v2Length);
+                    Vec2 v1 = new Vec2(v0.x - v2.x, v0.y - v2.y);
 
                     t1.setLinearSpeed(v1);
+
+                    System.out.println("------------------------------------------" + v1);
                     t2.setLinearSpeed(v2);
 
-                    System.out.println("---------------------------" + v1);
-                    System.out.println("---------------------------" + v2);
+                    System.out.println("------------------------------------------" + v2);
                 }
             }
         }
