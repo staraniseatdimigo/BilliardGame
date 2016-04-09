@@ -1,4 +1,4 @@
-package com.staranise.desktop.thing;
+package com.staranise.thing;
 
 /**
  * Created by YuTack on 2016-04-05.
@@ -33,6 +33,8 @@ public class Vec2 {
     public Vec2 add(Vec2 other) {
         return new Vec2(x + other.x, y + other.y);
     }
+
+    public Vec2 minus(Vec2 other) { return new Vec2(x - other.x, y - other.y); }
 
     //사이각
     public float getCos(Vec2 other) {

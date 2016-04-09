@@ -1,4 +1,4 @@
-package com.staranise.desktop.thing;
+package com.staranise.thing;
 
 /**
  * Created by YuTack on 2016-04-08.
