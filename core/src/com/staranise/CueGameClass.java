@@ -23,8 +23,8 @@ public class CueGameClass extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 
 		u = new Universe();
-		t1 = new Thing(1, new Vec2(0,0), new Vec2(0,1), new Vec2(0,0));
-		t2 = new Thing(1, new Vec2(0,5), new Vec2(0,0), new Vec2(0,0));
+		t1 = new Thing(1, new Vec2(0,0), new Vec2(2,0), new Vec2(0,0));
+		t2 = new Thing(1, new Vec2(10,0.2), new Vec2(0,0), new Vec2(0,0));
 
 		t1.setShape(new Shape(1.0f));
 		t2.setShape(new Shape(1.0f));

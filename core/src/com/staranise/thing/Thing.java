@@ -15,10 +15,10 @@ public class Thing {
         Dynamic //normal one
     }
 
-    private Vec2 position = new Vec2(0,0);
-    private Vec2 linearSpeed = new Vec2(0,0);
-    private Vec2 acceleration = new Vec2(0,0);
-    private float mass;
+    protected Vec2 position = new Vec2(0,0);
+    protected Vec2 linearSpeed = new Vec2(0,0);
+    protected Vec2 acceleration = new Vec2(0,0);
+    protected float mass;
 
     private ThingType type;
 
@@ -29,6 +29,12 @@ public class Thing {
     //private float? angluarVelocty;
 
     public Thing() {}
+
+    public Thing(float mass, Vec2 position){
+        this.mass = mass;
+        this.position = position;
+        this.type = ThingType.Dynamic;
+    }
 
     //dynamic Thing
     public Thing(float mass, Vec2 position, Vec2 linearSpeed, Vec2 acceleration) {
