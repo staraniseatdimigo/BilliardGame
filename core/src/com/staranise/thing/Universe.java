@@ -47,8 +47,8 @@ public class Universe {
             Thing t1 = things.get(i);
 
             if(t1.getType() == Thing.ThingType.Dynamic) {
-                t1.setLinearSpeed(t1.getLinearSpeed().add(t1.getAcceleration().multi(dt)));
-                t1.setPosition(t1.getLinearSpeed().multi(dt));
+                //t1.setLinearSpeed(t1.getLinearSpeed().add(t1.getAcceleration().multi(dt)));
+                //t1.setPosition(t1.getLinearSpeed().multi(dt));
             }
 
             for(int j= i+1; j<things.size(); j++) {
