@@ -76,7 +76,7 @@ public class Universe {
                     Vec2 v1 = new Vec2(v0.x - v2.x, v0.y - v2.y);
 
                     t1.setLinearSpeed(v1);
-
+                    //잘되라
                     System.out.println("------------------------------------------" + v1);
                     t2.setLinearSpeed(v2);
 
