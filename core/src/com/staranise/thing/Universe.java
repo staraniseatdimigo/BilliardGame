@@ -2,6 +2,7 @@ package com.staranise.thing;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Created by YuTack on 2016-04-08.
@@ -47,8 +48,8 @@ public class Universe {
             Thing t1 = things.get(i);
 
             if(t1.getType() == Thing.ThingType.Dynamic) {
-                //t1.setLinearSpeed(t1.getLinearSpeed().add(t1.getAcceleration().multi(dt)));
-                //t1.setPosition(t1.getLinearSpeed().multi(dt));
+                t1.setLinearSpeed(t1.getLinearSpeed().add(t1.getAcceleration().multi(dt)));
+                t1.setPosition(t1.getPosition().add(t1.getLinearSpeed().multi(dt)));
             }
 
             for(int j= i+1; j<things.size(); j++) {
@@ -57,15 +58,24 @@ public class Universe {
                 if(t1.getShape().getRadius() != -1 &&
                         t1.getShape().radius + things.get(j).getShape().radius >
                         t1.getPosition().getLength(t2.getPosition())) {
+
                     //한 물체가 정지한 경우에만 적용됨 테스트 코드에선 움직이는 thing을 먼저 넣고 그다음 안움직이는걸 넣는 걸로
                     Vec2 v0 = t1.getLinearSpeed();
 
                     //v0와 v1방향(두 원 위치를 빼서 구함)으로 사이각 구한 후, v0에 구한 사이각(cos) v1 전체를 구함.
-                    Vec2 v1 = v0.multi(v0.getCos(t2.getPosition().minus(t1.getPosition())));
-                    Vec2 v2 = new Vec2(v0.x - v1.x, -v1.y);
+
+                    float v0v1cos = v0.getCos(t2.getPosition().minus(t1.getPosition()));
+                    float v1Length = v0.multi(v0v1cos).getLength();
+
+                    Vec2 v2 = new Vec2(v1Length * v0v1cos, v1Length * Math.sqrt(1 - Math.pow(v0v1cos,2)));
+
+                    Vec2 v1 = new Vec2(v0.x - v2.x, -v2.y);
 
                     t1.setLinearSpeed(v1);
                     t2.setLinearSpeed(v2);
+
+                    System.out.println("---------------------------" + v1);
+                    System.out.println("---------------------------" + v2);
                 }
             }
         }

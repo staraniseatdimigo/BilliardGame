@@ -15,9 +15,9 @@ public class Thing {
         Dynamic //normal one
     }
 
-    private Vec2 position;
-    private Vec2 linearSpeed;
-    private Vec2 acceleration;
+    private Vec2 position = new Vec2(0,0);
+    private Vec2 linearSpeed = new Vec2(0,0);
+    private Vec2 acceleration = new Vec2(0,0);
     private float mass;
 
     private ThingType type;
