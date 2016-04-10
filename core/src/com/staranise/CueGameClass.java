@@ -2,40 +2,64 @@ package com.staranise;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.staranise.Basic.ObjectManager;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.staranise.Basic.BilliardBall;
 import com.staranise.Basic.QueObject;
+import com.staranise.Basic.World;
 import com.staranise.thing.Shape;
 import com.staranise.thing.Universe;
 import com.staranise.thing.Vec2;
 
-public class CueGameClass extends ApplicationAdapter {
-    QueObject ball1;
-    QueObject ball2;
+public class CueGameClass implements Screen {
+    private BilliardBall _ball1;
+    private BilliardBall _ball2;
 
-	Universe u;
+	private World world1;
 
 	@Override
-	public void create () {
-        ball1 = new QueObject("./core/assets/Ball1.png", 2.f, new Vec2(50.f, 50.f));
-        ball2 = new QueObject("./core/assets/Ball2.png", 2.f, new Vec2(50.f, 300.f));
+	public void show () {
+		world1 = new World(true);
 
-		u = new Universe();
+        _ball1 = new BilliardBall(1, new Vec2(50.f, 50.f));
+        _ball2 = new BilliardBall(2, new Vec2(50.f, 300.f));
 
-		ball1.setShape(new Shape(16.0f));
-		ball2.setShape(new Shape(16.0f));
+        _ball1.getEngine().setLinearSpeed(new Vec2(0.f, 150.f));
 
-        ball1.setLinearSpeed(new Vec2(0.f, 150.f));
-
-		u.addThing(ball1);
-		u.addThing(ball2);
+		world1.AddObject(_ball1);
+		world1.AddObject(_ball2);
 	}
 
 	@Override
-	public void render () {
+	public void render (float delta) {
 		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        u.flow(Gdx.graphics.getDeltaTime());
-        ObjectManager.getInstance().Render();
+		world1.Render();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
+
+	}
+
+	@Override
+	public void dispose() {
+
 	}
 }
