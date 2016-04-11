@@ -18,24 +18,27 @@ public class CueGameClass implements Screen {
 
 	private World world1;
 
-	@Override
-	public void show () {
+	public CueGameClass(){
 		world1 = new World(true);
 
-        _ball1 = new BilliardBall(1, new Vec2(50.f, 50.f));
-        _ball2 = new BilliardBall(2, new Vec2(50.f, 300.f));
+		_ball1 = new BilliardBall(1, new Vec2(50.f, 50.f));
+		_ball2 = new BilliardBall(2, new Vec2(50.f, 300.f));
 
-        _ball1.getEngine().setLinearSpeed(new Vec2(0.f, 150.f));
+		_ball1.getEngine().setLinearSpeed(new Vec2(0.f, 150.f));
 
 		world1.AddObject(_ball1);
 		world1.AddObject(_ball2);
 	}
 
 	@Override
+	public void show () {
+	}
+
+	@Override
 	public void render (float delta) {
 		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		world1.Render();
+		world1.Render(delta);
 	}
 
 	@Override

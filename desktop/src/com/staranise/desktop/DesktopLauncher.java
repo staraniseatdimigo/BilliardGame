@@ -3,10 +3,11 @@ package com.staranise.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.staranise.CueGameClass;
+import com.staranise.TheBilliard;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new CueGameClass(), config);
+		new LwjglApplication(new TheBilliard(), config);
 	}
 }

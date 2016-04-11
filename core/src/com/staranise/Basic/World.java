@@ -24,7 +24,8 @@ public class World {
             _universe.addThing(object.getEngine());
     }
 
-    public void Render(){
+    public void Render(float fDeltaTime){
+        _universe.flow(fDeltaTime);
         _stage.draw();
     }
 
