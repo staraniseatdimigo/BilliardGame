@@ -27,26 +27,36 @@ public class Vec2 {
 
     //Multiple with real number
     public Vec2 multi(float num) {
-        return new Vec2(x * num, y * num);
+        this.x *= num;
+        this.y *= num;
+        return this;
     }
 
     public Vec2 add(Vec2 other) {
-        return new Vec2(x + other.x, y + other.y);
+        this.x += other.x;
+        this.y += other.y;
+        return this;
     }
 
-    public Vec2 minus(Vec2 other) { return new Vec2(x - other.x, y - other.y); }
+    public Vec2 minus(Vec2 other) {
+        this.x -= other.x;
+        this.y -= other.y;
+        return this;
+    }
 
     //사이각
     public float getCos(Vec2 other) {
-        return (float)(inProduct(other) / (getLength() * other.getLength()));
+        return (float)(dot(other) / (getLength() * other.getLength()));
     }
 
     public Vec2 opposite() {
-        return new Vec2(-x, -y);
+        this.x *= -1;
+        this.y *= -1;
+        return this;
     }
 
     //inner Product
-    public float inProduct(Vec2 other) {
+    public float dot(Vec2 other) {
         return (this.x * other.x) + (this.y * other.y);
     }
 

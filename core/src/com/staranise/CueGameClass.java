@@ -13,12 +13,18 @@ import com.staranise.thing.Universe;
 import com.staranise.thing.Vec2;
 
 public class CueGameClass implements Screen {
-    private BilliardBall _ball1;
-    private BilliardBall _ball2;
 
 	private World world1;
 
-	public CueGameClass(){
+	private BilliardBall _ball1;
+	private BilliardBall _ball2;
+
+	TheBilliard game;
+
+	public CueGameClass(TheBilliard game) { this.game = game; }
+
+	@Override
+	public void show () {
 		world1 = new World(true);
 
 		_ball1 = new BilliardBall(1, new Vec2(50.f, 50.f));
@@ -28,10 +34,6 @@ public class CueGameClass implements Screen {
 
 		world1.AddObject(_ball1);
 		world1.AddObject(_ball2);
-	}
-
-	@Override
-	public void show () {
 	}
 
 	@Override

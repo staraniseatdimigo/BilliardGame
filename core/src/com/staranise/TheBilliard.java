@@ -11,7 +11,7 @@ public class TheBilliard extends Game {
 
     @Override
     public void create(){
-        gameMain = new CueGameClass();
+        gameMain = new CueGameClass(this);
         setScreen(gameMain);
     }
 
