@@ -56,7 +56,6 @@ public class Thing {
     }
 
     ////
-
     public Vec2 getAcceleration() {
         return acceleration;
     }

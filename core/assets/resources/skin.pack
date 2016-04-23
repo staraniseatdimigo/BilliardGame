@@ -1,0 +1,103 @@
+
+skin.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Grey
+  rotate: false
+  xy: 1, 29
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+LightBlue
+  rotate: false
+  xy: 99, 29
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+LightGreen
+  rotate: false
+  xy: 197, 29
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+dialog_background
+  rotate: false
+  xy: 295, 81
+  size: 97, 44
+  orig: 97, 44
+  offset: 0, 0
+  index: -1
+load_button
+  rotate: false
+  xy: 1, 1
+  size: 56, 26
+  orig: 56, 26
+  offset: 0, 0
+  index: -1
+load_button_pressed
+  rotate: false
+  xy: 295, 53
+  size: 56, 26
+  orig: 56, 26
+  offset: 0, 0
+  index: -1
+new_button
+  rotate: false
+  xy: 394, 99
+  size: 56, 26
+  orig: 56, 26
+  offset: 0, 0
+  index: -1
+new_button_pressed
+  rotate: false
+  xy: 59, 1
+  size: 56, 26
+  orig: 56, 26
+  offset: 0, 0
+  index: -1
+checkbox
+  rotate: false
+  xy: 295, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+checkbox_checked
+  rotate: false
+  xy: 353, 63
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+checkbox_hover
+  rotate: false
+  xy: 394, 81
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+dialog_button
+  rotate: false
+  xy: 452, 120
+  size: 8, 5
+  orig: 8, 5
+  offset: 0, 0
+  index: -1
+dialog_button_hover
+  rotate: false
+  xy: 117, 22
+  size: 8, 5
+  orig: 8, 5
+  offset: 0, 0
+  index: -1
+dialog_button_pressed
+  rotate: false
+  xy: 313, 46
+  size: 8, 5
+  orig: 8, 5
+  offset: 0, 0
+  index: -1

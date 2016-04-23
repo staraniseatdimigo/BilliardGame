@@ -3,10 +3,14 @@ package com.staranise;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.staranise.Basic.BilliardBall;
 import com.staranise.Basic.Cue;
+import com.staranise.Basic.GameResource;
 import com.staranise.Basic.World;
 import com.staranise.thing.Vec2;
 
@@ -30,12 +34,36 @@ public class GameMain implements Screen {
 		_cue = new Cue();
 		_cue.setVisible(false);
 
-		_ball1.getEngine().setLinearSpeed(new Vec2(100.f, 100.f));
-		_ball2.getEngine().setLinearSpeed(new Vec2(-100.f, -100.f));
+		_ball1.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
+		_ball2.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
 
 		world1.AddObject(_cue);
 		world1.AddObject(_ball1);
 		world1.AddObject(_ball2);
+
+		buttonInit();
+	}
+
+	public void buttonInit() {
+		GameResource.getInstance().getDrawable("new_button");
+		Button spinBtn;
+		Button.ButtonStyle spinBtnStyle = new Button.ButtonStyle();
+
+		spinBtnStyle.up = GameResource.getInstance().getDrawable("new_button");
+		spinBtnStyle.down = GameResource.getInstance().getDrawable("new_button_pressed");
+
+		spinBtn = new Button(spinBtnStyle);
+		spinBtn.addListener( new InputListener() {
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				return true;
+			}
+
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+
+			}
+		});
+
+		world1.AddObject(spinBtn);
 	}
 
 	@Override
