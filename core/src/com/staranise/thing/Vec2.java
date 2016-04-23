@@ -38,7 +38,7 @@ public class Vec2 {
 
     //사이각
     public float getCos(Vec2 other) {
-        return (float)(inProduct(other) / (getLength() * other.getLength()));
+        return (float)(dot(other) / (getLength() * other.getLength()));
     }
 
     public Vec2 opposite() {
@@ -46,7 +46,7 @@ public class Vec2 {
     }
 
     //inner Product
-    public float inProduct(Vec2 other) {
+    public float dot(Vec2 other) {
         return (this.x * other.x) + (this.y * other.y);
     }
 
