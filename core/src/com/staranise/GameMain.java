@@ -1,15 +1,13 @@
 package com.staranise;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.staranise.Basic.BilliardBall;
-import com.staranise.Basic.QueObject;
+import com.staranise.Basic.Cue;
 import com.staranise.Basic.World;
-import com.staranise.thing.Shape;
-import com.staranise.thing.Universe;
 import com.staranise.thing.Vec2;
 
 public class GameMain implements Screen {

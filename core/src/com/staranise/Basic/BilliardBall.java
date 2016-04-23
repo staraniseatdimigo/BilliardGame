@@ -65,10 +65,11 @@ public class BilliardBall extends QueObject {
                     stage.addListener(new InputListener() {
                         @Override
                         public boolean mouseMoved(InputEvent event, float x, float y) {
-                            Vec2 origin = new Vec2(1.f, 0.f);
+                            Vec2 origin = new Vec2(0.f, -1.f);
                             Vec2 direction = new Vec2(x, y);
-                            direction.minus(obj.getEngine().getPosition());
-                            float angle = ((float)Math.acos(origin.getCos(direction)))*(180.f/(float)Math.PI);
+                            Vec2 newdir = direction.minus(obj.getEngine().getPosition());
+                            float cosvalue = origin.getCos(newdir);
+                            float angle = (float)Math.acos(cosvalue) * (newdir.x >= 0 ?  1.f : -1.f) * 180.f / Constants.PI;
                             cue.positioning(obj.getEngine().getPosition(), angle);
                             return super.mouseMoved(event, x, y);
                         }
