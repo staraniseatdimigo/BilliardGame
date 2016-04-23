@@ -26,27 +26,27 @@ public class Vec2 {
     }
 
     //Multiple with real number
-    public Vec2 multi(float num) {
-        this.x *= num;
-        this.y *= num;
-        return this;
+    public static Vec2 multi(Vec2 src, float num) {
+        src.x *= num;
+        src.y *= num;
+        return src;
     }
 
-    public Vec2 add(Vec2 other) {
-        this.x += other.x;
-        this.y += other.y;
-        return this;
+    public static Vec2 add(Vec2 src, Vec2 dest) {
+        src.x += dest.x;
+        src.y += dest.y;
+        return src;
     }
 
-    public Vec2 minus(Vec2 other) {
-        this.x -= other.x;
-        this.y -= other.y;
-        return this;
+    public static Vec2 minus(Vec2 src, Vec2 dest) {
+        src.x -= dest.x;
+        src.y -= dest.y;
+        return src;
     }
 
     //사이각
     public float getCos(Vec2 other) {
-        return (float)(dot(other) / (getLength() * other.getLength()));
+        return (float)(Vec2.dot(this, other) / (getLength() * other.getLength()));
     }
 
     public Vec2 opposite() {
@@ -56,8 +56,8 @@ public class Vec2 {
     }
 
     //inner Product
-    public float dot(Vec2 other) {
-        return (this.x * other.x) + (this.y * other.y);
+    public static float dot(Vec2 v1, Vec2 v2) {
+        return (v1.x * v2.x) + (v1.y * v2.y);
     }
 
     public float getLength() {
@@ -72,8 +72,10 @@ public class Vec2 {
         return (float)Math.sqrt(Math.pow(x-other.x, 2) + Math.pow(y-other.y, 2));
     }
 
-    public Vec2 norm() {
-        return new Vec2(x / getLength(), y / getLength());
+    public static Vec2 normalize(Vec2 src) {
+        float length = src.getLength();
+        Vec2 ret = new Vec2(src.x / length, src.y / length);
+        return ret;
     }
 
     @Override
