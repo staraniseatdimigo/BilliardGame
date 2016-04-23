@@ -61,7 +61,7 @@ public class Universe {
                         t1.getPosition().getLength(t2.getPosition())) {
 
                     //한 물체가 정지한 경우에만 적용됨 테스트 코드에선 움직이는 thing을 먼저 넣고 그다음 안움직이는걸 넣는 걸로
-                    //t1이 처음 움직이던 물체, t2가 멈춰있던 물체
+                    //t1이 처음 움직이던 물체, t2가 멈춰있던 물체//
                     Vec2 v0 = t1.getLinearSpeed().minus(t2.getLinearSpeed()); // 좌표계 변환 t1이 정지한 물체로
                     Vec2 v2Direct = t2.getPosition().minus(t1.getPosition()).norm(); // 부딪힌 물체의 방향벡터 두 물체의 중심 위치를 빼서 구함
 
