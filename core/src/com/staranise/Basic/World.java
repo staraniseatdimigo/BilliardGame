@@ -1,6 +1,9 @@
 package com.staranise.Basic;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.staranise.thing.Universe;
 
 /**
@@ -11,11 +14,17 @@ public class World {
     private Stage _stage;
     private boolean _bUniverseExist;
 
-    public World(boolean bUniverseExist){
+    public World(boolean bUniverseExist, boolean bInputAllowed){
         _bUniverseExist = bUniverseExist;
         if(bUniverseExist)
             _universe = new Universe();
         _stage = new Stage();
+        if(bInputAllowed)
+            Gdx.input.setInputProcessor(_stage);
+    }
+
+    public void AddObject(Actor actor){
+        _stage.addActor(actor);
     }
 
     public void AddObject(QueObject object){
@@ -26,6 +35,7 @@ public class World {
 
     public void Render(float fDeltaTime){
         _universe.flow(fDeltaTime);
+        _stage.act(fDeltaTime);
         _stage.draw();
     }
 

@@ -57,7 +57,7 @@ public class Universe {
                 //circle collision check
                 Thing t2 = things.get(j);
                 if(t1.getShape().getRadius() != -1 &&
-                        t1.getShape().radius + things.get(j).getShape().radius >
+                        t1.getShape().radius + t2.getShape().radius >
                         t1.getPosition().getLength(t2.getPosition())) {
 
                     //한 물체가 정지한 경우에만 적용됨 테스트 코드에선 움직이는 thing을 먼저 넣고 그다음 안움직이는걸 넣는 걸로

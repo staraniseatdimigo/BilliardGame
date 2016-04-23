@@ -12,28 +12,31 @@ import com.staranise.thing.Shape;
 import com.staranise.thing.Universe;
 import com.staranise.thing.Vec2;
 
-public class CueGameClass implements Screen {
+public class GameMain implements Screen {
+    private BilliardBall _ball1;
+    private BilliardBall _ball2;
+	private BilliardBall _ball3;
+	private Cue _cue;
 
 	private World world1;
 
-	private BilliardBall _ball1;
-	private BilliardBall _ball2;
-
-	TheBilliard game;
-
-	public CueGameClass(TheBilliard game) { this.game = game; }
+	public GameMain(){
+	}
 
 	@Override
 	public void show () {
-		world1 = new World(true);
+		world1 = new World(true, true);
 
-		_ball1 = new BilliardBall(1, new Vec2(50.f, 50.f));
-		_ball2 = new BilliardBall(2, new Vec2(50.f, 300.f));
+		_ball1 = new BilliardBall(1, new Vec2(66.f, 50.f), world1);
+		_ball2 = new BilliardBall(2, new Vec2(50.f, 200.f), world1);
+		_ball3 = new BilliardBall(3, new Vec2(82.f, 200.f), world1);
+		_cue = new Cue();
+		_cue.setVisible(false);
 
-		_ball1.getEngine().setLinearSpeed(new Vec2(0.f, 150.f));
-
+		world1.AddObject(_cue);
 		world1.AddObject(_ball1);
 		world1.AddObject(_ball2);
+		world1.AddObject(_ball3);
 	}
 
 	@Override

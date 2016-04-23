@@ -7,11 +7,11 @@ import com.badlogic.gdx.Game;
  */
 public class TheBilliard extends Game {
 
-    private CueGameClass gameMain;
+    private GameMain gameMain;
 
     @Override
     public void create(){
-        gameMain = new CueGameClass(this);
+        gameMain = new GameMain();
         setScreen(gameMain);
     }
 
