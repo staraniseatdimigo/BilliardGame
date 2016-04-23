@@ -25,7 +25,7 @@ public class Vec2 {
         this.y = other.y;
     }
 
-    //Multiple with real number
+    //Multiple with real number//
     public static Vec2 multi(Vec2 src, float num) {
         src.x *= num;
         src.y *= num;
