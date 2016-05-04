@@ -8,17 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.staranise.Basic.BilliardBall;
-import com.staranise.Basic.Cue;
-import com.staranise.Basic.GameResource;
-import com.staranise.Basic.World;
+import com.staranise.Basic.*;
 import com.staranise.thing.Vec2;
 
 //
 public class GameMain implements Screen {
-    private BilliardBall _ball1;
-    private BilliardBall _ball2;
-	private Cue _cue;
 
 	private World world1;
 
@@ -27,24 +21,27 @@ public class GameMain implements Screen {
 
 	@Override
 	public void show () {
+
+		BilliardBall _ball1;
+		BilliardBall _ball2;
+		final BallSpinDecider _decider;
+		BallSpinPoint _point;
+		Cue _cue;
+
 		world1 = new World(true, true);
 
 		_ball1 = new BilliardBall(1, new Vec2(100.f, 100.f), world1);
 		_ball2 = new BilliardBall(2, new Vec2(300.f, 300.f), world1);
+
+		_decider = new BallSpinDecider();
+		_point = new BallSpinPoint();
+
 		_cue = new Cue();
-		_cue.setVisible(false);
 
 		_ball1.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
 		_ball2.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
 
-		world1.AddObject(_cue);
-		world1.AddObject(_ball1);
-		world1.AddObject(_ball2);
 
-		buttonInit();
-	}
-
-	public void buttonInit() {
 		GameResource.getInstance().getDrawable("new_button");
 		Button spinBtn;
 		Button.ButtonStyle spinBtnStyle = new Button.ButtonStyle();
@@ -59,11 +56,16 @@ public class GameMain implements Screen {
 			}
 
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-
+				_decider.setVisible(true);
 			}
 		});
 
+		world1.AddObject(_cue);
+		world1.AddObject(_decider);
+		world1.AddObject(_point);
 		world1.AddObject(spinBtn);
+		world1.AddObject(_ball1);
+		world1.AddObject(_ball2);
 	}
 
 	@Override

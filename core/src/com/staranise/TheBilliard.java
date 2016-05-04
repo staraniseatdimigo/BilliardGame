@@ -12,6 +12,7 @@ public class TheBilliard extends Game {
     @Override
     public void create(){
         gameMain = new GameMain();
+        gameMain.resize(1024, 768);
         setScreen(gameMain);
     }
 
