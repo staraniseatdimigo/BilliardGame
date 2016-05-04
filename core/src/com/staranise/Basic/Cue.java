@@ -3,9 +3,7 @@ package com.staranise.Basic;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.staranise.thing.Vec2;
 
 /**
@@ -13,50 +11,51 @@ import com.staranise.thing.Vec2;
  */
 public class Cue extends Actor {
 
+    private float _fDelta;
     private Sprite _sprite;
-    private float _fDeltaX = 0.f;
-    private float _fDeltaY = 0.f;
+    private float _fAngle;
+    private Vec2 _targetBallPos = null;
 
     public Cue(){
         _sprite = new Sprite(new Texture("cue.png"));
         setVisible(false);
         setWidth(_sprite.getWidth());
         setHeight(_sprite.getHeight());
-        addListener(new DragListener(){
-            @Override
-            public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                super.touchDragged(event, x, y, pointer);
-                _fDeltaX += getDeltaX();
-                _fDeltaY += getDeltaY();
-            }
-
-            @Override
-            public boolean mouseMoved(InputEvent event, float x, float y) {
-                return super.mouseMoved(event, x, y);
-            }
-
-            @Override
-            public void drag(InputEvent event, float x, float y, int pointer) {
-                super.drag(event, x, y, pointer);
-            }
-        });
+        setZIndex(6);
     }
 
-    public void positioning(Vec2 targetBallPos, float angle){
-        /*float cosvalue = (float)Math.cos(angle);
-        float sinvalue = (float)Math.sin(angle);*/
-        float critPosX = targetBallPos.x - 7.f;
-        float critPosY = targetBallPos.y - 252.f;
-        float finalPosX = critPosX + _fDeltaX;
-        float finalPosY = critPosY + _fDeltaY;
-        _sprite.setOrigin(7.f, 252.f);
+    public void setTargetBallPos(Vec2 targetBallPos){
+        _targetBallPos = targetBallPos;
+    }
+
+    public Vec2 getTargetBallPos(){
+        return _targetBallPos;
+    }
+
+    public void setAngle(float fAngle){
+        _fAngle = fAngle;
+    }
+
+    public void positioning(){
+
+        //기준 : 큐의 회전축
+        _sprite.setOrigin(7.f, 252.f + _fDelta);
+        float critPosX = _targetBallPos.x - (7.f);         //기준 x좌표 : 공의 x좌표/7.f : 이미지 위치 보정
+        float critPosY = _targetBallPos.y - (252.f + _fDelta);       //기준 y좌표 : 공의 y좌표/252.f : 이미지 위치 보정
+        float finalPosX = critPosX;
+        float finalPosY = critPosY;
+
         _sprite.setPosition(finalPosX, finalPosY);
-        _sprite.setRotation(angle);
-        //_sprite.setBounds();
+        _sprite.setRotation((float)Math.toDegrees(_fAngle));
+    }
+
+    public void addScrolling(float delta){
+        _fDelta += delta;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha){
+        positioning();
         _sprite.draw(batch);
     }
 }

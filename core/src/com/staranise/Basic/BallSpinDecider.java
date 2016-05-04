@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.sun.glass.ui.Screen;
 
 /**
  * Created by 현성 on 2016-04-23.
@@ -40,7 +41,7 @@ public class BallSpinDecider extends Actor {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                _point = event.getStage().getActors().get(2);
+                _point = event.getStage().getActors().get(3);
                 _point.setPosition(_rootX + x-26.f, y-26.f);
                 _point.setVisible(true);
                 _touched = true;
@@ -50,7 +51,9 @@ public class BallSpinDecider extends Actor {
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 if(_touched){
-                    _point.setPosition(_rootX + x-26.f, y-26.f);
+                    if((0.f <= x &&
+                            _sprite.getHeight() >= y))
+                        _point.setPosition(_rootX + x-26.f, y-26.f);
                 }
                 super.touchDragged(event, x, y, pointer);
             }
@@ -78,7 +81,7 @@ public class BallSpinDecider extends Actor {
         super.setVisible(visible);
         if(visible){
             if(_fSpinX != -1.f){
-                getStage().getActors().get(2).setVisible(true);
+                getStage().getActors().get(3).setVisible(true);
             }
         }
     }
