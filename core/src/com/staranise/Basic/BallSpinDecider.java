@@ -18,6 +18,7 @@ public class BallSpinDecider extends Actor {
     private float _fSpinY = -1.f;
     private static float _rootX = Gdx.graphics.getWidth() - 128.f;
 
+
     //private static final InputListener listener;
 
     public void setSpinPos(float spinX, float spinY){
@@ -41,30 +42,32 @@ public class BallSpinDecider extends Actor {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                _point = event.getStage().getActors().get(3);
-                _point.setPosition(_rootX + x-26.f, y-26.f);
+                _point = getStage().getActors().get(3);
+                _point.setPosition(Gdx.graphics.getWidth()-90.f, 40.f);
                 _point.setVisible(true);
-                _touched = true;
+                _point.setPosition(_rootX + x-26.f, y-26.f);
                 return true;
             }
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if(_touched){
-                    if((0.f <= x &&
-                            _sprite.getHeight() >= y))
-                        _point.setPosition(_rootX + x-26.f, y-26.f);
-                }
+                if((0.f <= x &&
+                        _sprite.getHeight() >= y))
+                    _point.setPosition(_rootX + x-26.f, y-26.f);
                 super.touchDragged(event, x, y, pointer);
             }
 
             @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                super.enter(event, x, y, pointer, fromActor);
+            }
+
+            @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                BallSpinDecider target = (BallSpinDecider)event.getTarget();
-                target.setSpinPos(x-64.f, y-64.f);
-                target.setVisible(false);
-                _point.setVisible(false);
-                _touched = false;
+                //BallSpinDecider target = (BallSpinDecider)event.getTarget();
+                //target.setSpinPos(x-64.f, y-64.f); // 박유택 : 왜 이렇게 한거?
+                _fSpinX = x-64.f;
+                _fSpinY = y-64.f;
                 super.touchUp(event, x, y, pointer, button);
             }
         });

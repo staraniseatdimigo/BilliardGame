@@ -29,7 +29,7 @@ public class GameMain implements Screen {
 		BilliardBall _ball1;
 		BilliardBall _ball2;
 		final BallSpinDecider _decider;
-		BallSpinPoint _point;
+		final BallSpinPoint _point;
 
 		world1 = new World(true, true);
 
@@ -45,7 +45,6 @@ public class GameMain implements Screen {
 		_ball1.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
 		_ball2.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
 
-
 		GameResource.getInstance().getDrawable("new_button");
 		Button spinBtn;
 		Button.ButtonStyle spinBtnStyle = new Button.ButtonStyle();
@@ -60,7 +59,12 @@ public class GameMain implements Screen {
 			}
 
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-				_decider.setVisible(true);
+				if(_decider.isVisible()) {
+					_decider.setVisible(false);
+					_point.setVisible(false);
+				}
+				else
+					_decider.setVisible(true);
 			}
 		});
 

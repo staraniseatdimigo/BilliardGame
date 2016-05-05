@@ -28,6 +28,7 @@ public class World {
     }
 
     public void AddObject(QueObject object){
+
         _stage.addActor(object);
         if(_bUniverseExist)
             _universe.addThing(object.getEngine());
