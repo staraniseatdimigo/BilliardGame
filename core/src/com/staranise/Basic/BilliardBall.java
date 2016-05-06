@@ -1,5 +1,6 @@
 package com.staranise.Basic;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.staranise.GameMain;
 import com.staranise.thing.Shape;
 import com.staranise.thing.Thing;
 import com.staranise.thing.Vec2;
@@ -31,6 +33,7 @@ public class BilliardBall extends QueObject {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                GameMain._gameStep = 2;
                 if(Option.DEBUG_MODE) {
                     Debug.println("asd", "asd");
                     Stage stage = event.getTarget().getStage();
@@ -61,7 +64,7 @@ public class BilliardBall extends QueObject {
                     World world = obj.getWorld();
                     final Cue cue = (Cue)(world.getStage().getActors().get(1));
                     cue.setVisible(true);
-                    cue.setTargetBallPos(obj.getEngine().getPosition());
+                    cue.setTargetBall((BilliardBall)obj);
                 }
                 super.touchUp(event, x, y, pointer, button);
             }
