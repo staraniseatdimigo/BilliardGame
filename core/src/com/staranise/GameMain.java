@@ -106,6 +106,19 @@ public class GameMain implements Screen {
 	@Override
 	public void render (float delta) {
 		cueEvent();
+
+		for(Actor actor : world1.getStage().getActors()) {
+			if(actor instanceof BilliardBall) {
+				BilliardBall ball = ((BilliardBall) actor);
+				Vec2 spd = ball.getEngine().getLinearSpeed();
+				if(spd.getLength() - 8.0f*delta > 0)
+					ball.getEngine().setLinearSpeed(spd.norm().multi(spd.getLength() - 8.0f*delta));
+				else
+					ball.getEngine().setLinearSpeed(new Vec2(0,0));
+
+			}
+		}
+
 		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		world1.Render(delta);
