@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Created by 현성 on 2016-04-24.
+ * Created by 현성 on 2016-04-24..
  */
 public class BallSpinPoint extends Actor {
 

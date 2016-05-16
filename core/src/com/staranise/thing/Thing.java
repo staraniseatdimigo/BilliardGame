@@ -7,7 +7,7 @@ package com.staranise.thing;
  *
  * class Thing, basic class of all object in engine
  *
- * kg, m, s
+ * kg, m, s.
  */
 public class Thing {
     public enum ThingType {

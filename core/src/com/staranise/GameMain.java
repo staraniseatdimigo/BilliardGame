@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.staranise.Basic.*;
 import com.staranise.thing.Vec2;
 
-//
+//.
 public class GameMain implements Screen {
 
 	private World world1;

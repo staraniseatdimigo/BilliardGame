@@ -3,7 +3,7 @@ package com.staranise;
 import com.badlogic.gdx.Game;
 
 /**
- * Created by 현성 on 2016-04-11.
+ * Created by 현성 on 2016-04-11..
  */
 public class TheBilliard extends Game {
 

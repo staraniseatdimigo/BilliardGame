@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.staranise.thing.Universe;
 
 /**
- * Created by 현성 on 2016-04-10.
+ * Created by 현성 on 2016-04-10..
  */
 public class World {
     private Universe _universe;

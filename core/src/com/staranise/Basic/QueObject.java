@@ -9,7 +9,7 @@ import com.staranise.thing.Thing;
 import com.staranise.thing.Vec2;
 
 /**
- * Created by 현성 on 2016-04-09.
+ * Created by 현성 on 2016-04-09..
  */
 public class QueObject extends Actor{
     protected Thing _physEng;

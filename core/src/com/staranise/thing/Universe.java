@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * Created by YuTack on 2016-04-08.
+ * Created by YuTack o.n 2016-04-08.
  * 우주
  */
 public class Universe {
