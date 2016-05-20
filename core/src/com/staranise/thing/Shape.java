@@ -1,7 +1,7 @@
 package com.staranise.thing;
 
 /**
- * Created by YuTack on 2016-04-08.
+ * Created by YuTack on 2016-04-08..
  */
 public class Shape {
     float radius = -1; //mean not circle

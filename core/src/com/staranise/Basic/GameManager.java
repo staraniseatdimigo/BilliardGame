@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by YuTack on 2016-05-05.
+ * Created by YuTack on 2016-05-05..
  *
  * 게임 정보 저장, 관리, 모든 엑터 레퍼런스 저장
  */

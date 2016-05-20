@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 /**
- * Created by YuTack on 2015-11-16.
+ * Created by YuTack on 2015-11-16..
  */
 public class GameResource {
     private static GameResource ourInstance = new GameResource();

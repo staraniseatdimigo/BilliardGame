@@ -15,7 +15,7 @@ import com.staranise.thing.Vec2;
 import sun.security.ssl.Debug;
 
 /**
- * Created by 현성 on 2016-04-10.
+ * Created by 현성 on 2016-04-10..
  */
 public class BilliardBall extends QueObject {
 

@@ -6,9 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.staranise.thing.Universe;
+import com.staranise.thing.Vec2;
 
 /**
- * Created by 현성 on 2016-04-10.
+ * Created by 현성 on 2016-04-10..
  */
 public class World {
     private Universe _universe;
@@ -18,7 +19,7 @@ public class World {
     public World(boolean bUniverseExist, boolean bInputAllowed){
         _bUniverseExist = bUniverseExist;
         if(bUniverseExist)
-            _universe = new Universe();
+            _universe = new Universe(new Vec2(0,0));
         _stage = new Stage();
         if(bInputAllowed)
             Gdx.input.setInputProcessor(_stage);

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.staranise.thing.Vec2;
 
 /**
- * Created by 현성 on 2016-04-23.
+ * Created by 현성 on 2016-04-23..
  */
 public class Cue extends TexturedObject {
 

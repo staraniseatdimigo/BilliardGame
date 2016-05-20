@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.sun.glass.ui.Screen;
 
 /**
- * Created by 현성 on 2016-04-23.
+ * Created by 현성 on 2016-04-23..
  */
 public class BallSpinDecider extends TexturedObject {
     private float _fSpinX = 0.f;

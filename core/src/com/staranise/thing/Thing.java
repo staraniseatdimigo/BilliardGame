@@ -12,7 +12,7 @@ import java.util.*;
  *
  * class Thing, basic class of all object in engine
  *
- * kg, m, s
+ * kg, m, s.
  */
 public class Thing {
     public enum ThingType {

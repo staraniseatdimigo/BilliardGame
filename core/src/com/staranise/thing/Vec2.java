@@ -1,7 +1,7 @@
 package com.staranise.thing;
 
 /**
- * Created by YuTack on 2016-04-05.
+ * Created by YuTack on 2016-04-05..
  */
 public class Vec2 {
     public float x = 0;

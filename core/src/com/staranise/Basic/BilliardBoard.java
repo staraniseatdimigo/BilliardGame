@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Created by 현성 on 2016-05-04.
+ * Created by 현성 on 2016-05-04..
  */
 public class BilliardBoard extends TexturedObject {
 
