@@ -3,6 +3,7 @@ package com.staranise;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -19,9 +20,9 @@ public class GameMain implements Screen {
 	private World world1;
 	private Cue _cue;
 
-	private Vec2 _oldDir = null;
-
 	public static GameMain _temp = null;
+
+	private OrthographicCamera camera;
 
 	public GameMain(){
 		_temp = this;
@@ -39,15 +40,26 @@ public class GameMain implements Screen {
 		final BallSpinDecider _decider;
 		final BallSpinPoint _point;
 
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.position.set(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f, 0);
+		camera.update();
+
+		GameManager.getInstance().cam = camera;
+
 		world1 = new World(true, true);
 
 		_board = new BilliardBoard();
-		_ball1 = new BilliardBall(1, new Vec2(200.f, 200.f), world1);
-		_ball2 = new BilliardBall(2, new Vec2(300.f, 300.f), world1);
-		_ball3 = new BilliardBall(3, new Vec2(100.f, 100.f), world1);
+		_ball1 = new BilliardBall(1, new Vec2(400.f, 200.f), world1);
+		_ball2 = new BilliardBall(2, new Vec2(250.f, 200.f), world1);
+		//_ball3 = new BilliardBall(3, new Vec2(100.f, 100.f), world1);
+
+		_ball1.getEngine().setId("Ball1");
+		_ball2.getEngine().setId("Ball2");
 
 		_decider = new BallSpinDecider();
 		_point = new BallSpinPoint();
+
+		GameManager.getInstance().decider = _decider;
 
 		_cue = new Cue();
 
@@ -92,7 +104,7 @@ public class GameMain implements Screen {
 		world1.AddObject(spinBtn);
 		world1.AddObject(_ball1);
 		world1.AddObject(_ball2);
-		world1.AddObject(_ball3);
+		//world1.AddObject(_ball3);
 
 		GameManager.getInstance().setCue(_cue);
 	}
@@ -105,7 +117,20 @@ public class GameMain implements Screen {
 
 	@Override
 	public void render (float delta) {
+		camera.update();
 		cueEvent();
+
+		/*for(Actor actor : world1.getStage().getActors()){
+			if(actor instanceof BilliardBall){
+				BilliardBall ball = (BilliardBall)actor;
+				Vec2 spd = ball.getEngine().getLinearSpeed();
+				if(spd.getLength() - 16.0f*delta > 0)
+					ball.getEngine().setLinearSpeed(spd.norm().multi(spd.getLength() - 16.f*delta));
+				else
+					ball.getEngine().setLinearSpeed(new Vec2(0, 0));
+			}
+		}*/
+
 		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		world1.Render(delta);

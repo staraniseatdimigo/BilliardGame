@@ -10,10 +10,9 @@ import com.staranise.thing.Vec2;
 /**
  * Created by 현성 on 2016-04-23.
  */
-public class Cue extends Actor {
+public class Cue extends TexturedObject {
 
     private float _fDelta;
-    private Sprite _sprite;
     private float _fAngle;
     private BilliardBall _targetBall = null;
     private Vec2 _targetPos = null;
@@ -65,8 +64,16 @@ public class Cue extends Actor {
                 _fDelta = 0.f;
                 _oldDir = null;
                 Vec2 vecBallSpd = newdir.multi(-1.f);
+
+                BallSpinDecider decider = GameManager.getInstance().decider;
+                float x = decider.getSpinX();
+                float y = decider.getSpinY();
+
+                _targetBall.getEngine().addAccComponent("수직스핀", vecBallSpd.norm().multi(y*3));
                 _targetBall.getEngine().setLinearSpeed(vecBallSpd);
+
                 positioning();
+                _targetBall = null;
             }
         }
 
@@ -89,10 +96,5 @@ public class Cue extends Actor {
             _sprite.setPosition(finalPosX, finalPosY);
             _sprite.setRotation((float) Math.toDegrees(_fAngle));
         }
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha){
-        _sprite.draw(batch);
     }
 }

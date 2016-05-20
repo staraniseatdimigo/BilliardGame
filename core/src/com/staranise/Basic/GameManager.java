@@ -1,5 +1,7 @@
 package com.staranise.Basic;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,10 @@ public class GameManager {
     private List<BilliardBall> balls = new ArrayList<BilliardBall>();
     private World world;
     private Cue _cue;
+    private float _fDeltaTime;
+
+    public OrthographicCamera cam;
+    public BallSpinDecider decider;
 
     private boolean isOnGame = false;
 
@@ -25,6 +31,14 @@ public class GameManager {
 
     public void setCue(Cue cue){
         _cue = cue;
+    }
+
+    public void setDeltaTime(float fDeltaTime){
+        _fDeltaTime = fDeltaTime;
+    }
+
+    public float getDeltaTime(){
+        return _fDeltaTime;
     }
 
     public Cue getCue(){

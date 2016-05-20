@@ -1,19 +1,21 @@
 package com.staranise.Basic;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.staranise.Util.DebugLine;
 import com.staranise.thing.Thing;
 import com.staranise.thing.Vec2;
 
 /**
  * Created by 현성 on 2016-04-09.
  */
-public class QueObject extends Actor{
+public class QueObject extends TexturedObject{
     protected Thing _physEng;
-    protected Sprite _sprite;
     protected World _world;
 
     public QueObject(String strImgPath, float fMass, Vec2 vecPosition, World world){
@@ -26,13 +28,14 @@ public class QueObject extends Actor{
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
         Vec2 pos = _physEng.getPosition();
+        Vec2 speed = _physEng.getLinearSpeed();
         float trX = pos.x - _sprite.getWidth() / 2.f;
         float trY = pos.y - _sprite.getHeight() / 2.f;
+        super.draw(batch, parentAlpha);
         _sprite.setCenter(pos.x, pos.y);
-        _sprite.draw(batch);
         setPosition(trX, trY);
+        //DebugLine.RenderLine(pos, speed.add(pos));
     }
 
     public Thing getEngine(){

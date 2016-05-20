@@ -1,5 +1,10 @@
 package com.staranise.thing;
 
+import com.badlogic.gdx.Gdx;
+import com.staranise.Basic.GameManager;
+
+import java.util.*;
+
 /**
  * Created by YuTack on 2016-04-05.
  *
@@ -15,10 +20,13 @@ public class Thing {
         Dynamic //normal one
     }
 
+    private Map<String, Vec2> accComps = new HashMap<String, Vec2>();
     protected Vec2 position = new Vec2(0,0);
     protected Vec2 linearSpeed = new Vec2(0,0);
     protected Vec2 acceleration = new Vec2(0,0);
     protected float mass;
+    protected Controller movementController = null;
+    protected Controller stopController = null;
 
     private ThingType type;
 
@@ -51,6 +59,56 @@ public class Thing {
         this.type = ThingType.Static;
     }
 
+    public void setMovementController(Controller controller){
+        movementController = controller;
+    }
+
+    public void setStopController(Controller controller){
+        stopController = controller;
+    }
+
+    public void executeMovementController(){
+        if(movementController != null)
+            movementController.control(this);
+    }
+
+    public void executeStopController(){
+        if(stopController != null)
+            stopController.control(this);
+    }
+
+    public void addAccComponent(String compName, Vec2 accComp){
+        //acceleration.setLength(0.f);
+        if(accComps.containsKey(compName))
+            acceleration = acceleration.minus(accComps.get(compName));
+        accComps.put(compName, accComp);
+        /*for(Map.Entry<String, Vec2> comp : accComps.entrySet()) {
+            acceleration = acceleration.add(comp.getValue());
+        }*/
+        acceleration = acceleration.add(accComp);
+    }
+
+    public final Vec2 getAccComponent(String compName){
+        return accComps.get(compName);
+    }
+
+    public void adjustAccComponent(String compName, Vec2 diff){
+        accComps.put(compName, accComps.get(compName).add(diff));
+        acceleration = acceleration.add(diff);
+    }
+
+    public void deleteAccComponent(String compName){
+        Vec2 comp = accComps.get(compName);
+        if(comp != null) {
+            acceleration = acceleration.minus(comp);
+            accComps.remove(compName);
+        }
+    }
+
+    public boolean isComponentExist(String compName){
+        return accComps.containsKey(compName);
+    }
+
     public void setCircleShape(float radius) {
         this.shape = new Shape(radius);
     }
@@ -68,8 +126,15 @@ public class Thing {
         return linearSpeed;
     }
 
+    public boolean temp = false;
     public void setLinearSpeed(Vec2 linearSpeed) {
         this.linearSpeed = linearSpeed;
+    }
+
+    public void resetDynamic(){
+        linearSpeed.setLength(0.f);
+        acceleration.setLength(0.f);
+        accComps.clear();
     }
 
     public Vec2 getPosition() {
@@ -111,4 +176,5 @@ public class Thing {
     public void setShape(Shape shape) {
         this.shape = shape;
     }
+
 }

@@ -12,12 +12,10 @@ import com.sun.glass.ui.Screen;
 /**
  * Created by 현성 on 2016-04-23.
  */
-public class BallSpinDecider extends Actor {
-    private Sprite _sprite;
-    private float _fSpinX = -1.f;
-    private float _fSpinY = -1.f;
+public class BallSpinDecider extends TexturedObject {
+    private float _fSpinX = 0.f;
+    private float _fSpinY = 0.f;
     private static float _rootX = Gdx.graphics.getWidth() - 128.f;
-
 
     //private static final InputListener listener;
 
@@ -73,10 +71,12 @@ public class BallSpinDecider extends Actor {
         });
     }
 
+    public float getSpinX(){
+        return _fSpinX;
+    }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha){
-        _sprite.draw(batch);
+    public float getSpinY(){
+        return _fSpinY;
     }
 
     @Override
