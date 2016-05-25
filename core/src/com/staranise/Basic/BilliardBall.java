@@ -92,10 +92,12 @@ public class BilliardBall extends QueObject {
                     }
                 }
 
-                horizontalSpin += (horizontalSpin > 0) ?
-                        -GameConfig.HORIZONTAL_SPIN_DECREASE_AMOUNT : GameConfig.HORIZONTAL_SPIN_DECREASE_AMOUNT;
-                if(originHspin * horizontalSpin < 0) //넘 많이 빼서 방향바뀐경우
-                    horizontalSpin = 0;
+                //if(horizontalSpin != 0) {
+                    horizontalSpin += (horizontalSpin > 0) ?
+                            -GameConfig.HORIZONTAL_SPIN_DECREASE_AMOUNT : GameConfig.HORIZONTAL_SPIN_DECREASE_AMOUNT;
+                    if (originHspin * horizontalSpin < 0) //넘 많이 빼서 방향바뀐경우
+                        horizontalSpin = 0;
+                //}
             }
         };
     }

@@ -73,7 +73,7 @@ public class Cue extends TexturedObject {
                 _targetBall.getEngine().setAccComponent("수직스핀", vecBallSpd.norm().multi(y * GameConfig.VERTICAL_SPIN_FACTOR));
                 _targetBall.getEngine().setLinearSpeed(vecBallSpd.multi(GameConfig.CUE_POWER_FACTOR));
 
-                _targetBall.setHorizontalSpin(-y);
+                _targetBall.setHorizontalSpin(-x);
 
                 positioning();
                 _targetBall = null;
