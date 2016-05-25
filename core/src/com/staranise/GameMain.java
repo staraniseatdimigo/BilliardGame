@@ -47,9 +47,10 @@ public class GameMain implements Screen {
 		GameManager.getInstance().cam = camera;
 
 		world1 = new World(true, true);
+		world1.getUniverse().setBorder(new Vec2(100, 110), new Vec2(440, 220), false);
 
 		_board = new BilliardBoard();
-		_ball1 = new BilliardBall(1, new Vec2(400.f, 200.f), world1);
+		_ball1 = new BilliardBall(1, new Vec2(400.f, 220.f), world1);
 		_ball2 = new BilliardBall(2, new Vec2(250.f, 200.f), world1);
 		//_ball3 = new BilliardBall(3, new Vec2(100.f, 100.f), world1);
 
@@ -104,7 +105,6 @@ public class GameMain implements Screen {
 		world1.AddObject(spinBtn);
 		world1.AddObject(_ball1);
 		world1.AddObject(_ball2);
-		//world1.AddObject(_ball3);
 
 		GameManager.getInstance().setCue(_cue);
 	}
@@ -119,17 +119,6 @@ public class GameMain implements Screen {
 	public void render (float delta) {
 		camera.update();
 		cueEvent();
-
-		/*for(Actor actor : world1.getStage().getActors()){
-			if(actor instanceof BilliardBall){
-				BilliardBall ball = (BilliardBall)actor;
-				Vec2 spd = ball.getEngine().getLinearSpeed();
-				if(spd.getLength() - 16.0f*delta > 0)
-					ball.getEngine().setLinearSpeed(spd.norm().multi(spd.getLength() - 16.f*delta));
-				else
-					ball.getEngine().setLinearSpeed(new Vec2(0, 0));
-			}
-		}*/
 
 		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

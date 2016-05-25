@@ -28,6 +28,8 @@ public class Thing {
     protected Controller movementController = null;
     protected Controller stopController = null;
 
+    public CollideEventListener collideEventListener = null;
+
     private ThingType type;
 
     //use it when search Thing from universe, it should provide proper equals method
@@ -77,31 +79,26 @@ public class Thing {
             stopController.control(this);
     }
 
-    public void addAccComponent(String compName, Vec2 accComp){
-        //acceleration.setLength(0.f);
+    //return zero vector instead of null
+    public final Vec2 getAccComponent(String compName){
+        if(accComps.get(compName) == null)
+            return new Vec2(0,0);
+        else
+            return accComps.get(compName);
+    }
+
+    //it will automacally remove componetn if newAcc is zero vector or not so meaningful (length is less than 0.1f)
+    public void setAccComponent(String compName, Vec2 newAcc) {
+
         if(accComps.containsKey(compName))
             acceleration = acceleration.minus(accComps.get(compName));
-        accComps.put(compName, accComp);
-        /*for(Map.Entry<String, Vec2> comp : accComps.entrySet()) {
-            acceleration = acceleration.add(comp.getValue());
-        }*/
-        acceleration = acceleration.add(accComp);
-    }
 
-    public final Vec2 getAccComponent(String compName){
-        return accComps.get(compName);
-    }
-
-    public void adjustAccComponent(String compName, Vec2 diff){
-        accComps.put(compName, accComps.get(compName).add(diff));
-        acceleration = acceleration.add(diff);
-    }
-
-    public void deleteAccComponent(String compName){
-        Vec2 comp = accComps.get(compName);
-        if(comp != null) {
-            acceleration = acceleration.minus(comp);
+        if(newAcc.getLength() <= 0.1f) {
             accComps.remove(compName);
+        }
+        else {
+            accComps.put(compName, newAcc);
+            acceleration = acceleration.add(newAcc);
         }
     }
 
@@ -126,10 +123,10 @@ public class Thing {
         return linearSpeed;
     }
 
-    public boolean temp = false;
     public void setLinearSpeed(Vec2 linearSpeed) {
         this.linearSpeed = linearSpeed;
     }
+    public void addLinearSpeed(Vec2 linearSpeed) { this.linearSpeed = this.linearSpeed.add(linearSpeed); }
 
     public void resetDynamic(){
         linearSpeed.setLength(0.f);

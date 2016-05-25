@@ -9,6 +9,7 @@ import com.staranise.thing.Vec2;
 
 /**
  * Created by 현성 on 2016-04-23..
+ * cue
  */
 public class Cue extends TexturedObject {
 
@@ -69,8 +70,10 @@ public class Cue extends TexturedObject {
                 float x = decider.getSpinX();
                 float y = decider.getSpinY();
 
-                _targetBall.getEngine().addAccComponent("수직스핀", vecBallSpd.norm().multi(y*3));
-                _targetBall.getEngine().setLinearSpeed(vecBallSpd);
+                _targetBall.getEngine().setAccComponent("수직스핀", vecBallSpd.norm().multi(y * GameConfig.VERTICAL_SPIN_FACTOR));
+                _targetBall.getEngine().setLinearSpeed(vecBallSpd.multi(GameConfig.CUE_POWER_FACTOR));
+
+                _targetBall.setHorizontalSpin(-y);
 
                 positioning();
                 _targetBall = null;

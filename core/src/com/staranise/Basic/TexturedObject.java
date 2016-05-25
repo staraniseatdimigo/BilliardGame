@@ -6,10 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Created by 현성 on 2016-05-17.
+ * j
  */
 public class TexturedObject extends Actor {
     protected Sprite _sprite;
-
 
     @Override
     public void draw(Batch batch, float parentAlpha){

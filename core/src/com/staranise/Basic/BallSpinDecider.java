@@ -11,6 +11,7 @@ import com.sun.glass.ui.Screen;
 
 /**
  * Created by 현성 on 2016-04-23..
+ * ball spin decider
  */
 public class BallSpinDecider extends TexturedObject {
     private float _fSpinX = 0.f;
@@ -63,7 +64,7 @@ public class BallSpinDecider extends TexturedObject {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 //BallSpinDecider target = (BallSpinDecider)event.getTarget();
-                //target.setSpinPos(x-64.f, y-64.f); // 박유택 : 왜 이렇게 한거?
+                //target.setSpinPos(x-64.f, y-64.f);
                 _fSpinX = x-64.f;
                 _fSpinY = y-64.f;
                 super.touchUp(event, x, y, pointer, button);

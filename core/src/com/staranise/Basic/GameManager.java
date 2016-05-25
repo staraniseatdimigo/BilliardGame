@@ -41,6 +41,10 @@ public class GameManager {
         return _fDeltaTime;
     }
 
+    public List<BilliardBall> getBilliardBallList() {
+        return balls;
+    }
+
     public Cue getCue(){
         return _cue;
     }
