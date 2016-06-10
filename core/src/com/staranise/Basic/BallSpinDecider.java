@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.staranise.GameMain;
 import com.sun.glass.ui.Screen;
 
 /**
@@ -34,7 +35,7 @@ public class BallSpinDecider extends TexturedObject {
         setHeight(_sprite.getHeight());
         setBounds(Gdx.graphics.getWidth()-_sprite.getWidth(), 0.f, _sprite.getWidth(), _sprite.getHeight());
 
-        addListener(/*listener*/new InputListener(){
+        addListener(new InputListener(){
 
             private Actor _point;
             private boolean _touched = false;
@@ -45,14 +46,15 @@ public class BallSpinDecider extends TexturedObject {
                 _point.setPosition(Gdx.graphics.getWidth()-90.f, 40.f);
                 _point.setVisible(true);
                 _point.setPosition(_rootX + x-26.f, y-26.f);
+                GameMain._gameStep = 4;
                 return true;
             }
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if((0.f <= x &&
-                        _sprite.getHeight() >= y))
+                if(0.f <= x && x <= _sprite.getWidth() && 0.f <= y && y <= _sprite.getHeight())
                     _point.setPosition(_rootX + x-26.f, y-26.f);
+                GameMain._gameStep = 4;
                 super.touchDragged(event, x, y, pointer);
             }
 
@@ -63,8 +65,6 @@ public class BallSpinDecider extends TexturedObject {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //BallSpinDecider target = (BallSpinDecider)event.getTarget();
-                //target.setSpinPos(x-64.f, y-64.f);
                 _fSpinX = x-64.f;
                 _fSpinY = y-64.f;
                 super.touchUp(event, x, y, pointer, button);
@@ -80,13 +80,4 @@ public class BallSpinDecider extends TexturedObject {
         return _fSpinY;
     }
 
-    @Override
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-        if(visible){
-            if(_fSpinX != -1.f){
-                getStage().getActors().get(3).setVisible(true);
-            }
-        }
-    }
 }

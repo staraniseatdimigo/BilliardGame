@@ -60,6 +60,8 @@ public class GameMain implements Screen {
 		_decider = new BallSpinDecider();
 		_point = new BallSpinPoint();
 
+		_point.setVisible(false);
+
 		GameManager.getInstance().decider = _decider;
 
 		_cue = new Cue();
@@ -85,8 +87,10 @@ public class GameMain implements Screen {
 					_decider.setVisible(false);
 					_point.setVisible(false);
 				}
-				else
+				else {
 					_decider.setVisible(true);
+					_point.setVisible(true);
+				}
 			}
 		});
 
@@ -94,7 +98,10 @@ public class GameMain implements Screen {
 			@Override
 			public void dragStop(InputEvent event, float x, float y, int pointer) {
 				super.dragStop(event, x, y, pointer);
-				_gameStep = 3;
+				if(_gameStep != 4)
+					_gameStep = 3;
+				else
+					_gameStep = 2;
 			}
 		});
 

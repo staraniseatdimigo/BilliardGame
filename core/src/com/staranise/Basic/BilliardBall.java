@@ -156,7 +156,7 @@ public class BilliardBall extends QueObject {
         this.getEngine().setMovementController(new Controller() {
             @Override
             public void control(Thing thing) {
-                if(Option.DEBUG_MODE)
+                //if(Option.DEBUG_MODE)
                     System.out.println("방향 전환 : " + thing.getId());
 
                 Vec2 frictionAcc = thing.getAccComponent("마찰력");
