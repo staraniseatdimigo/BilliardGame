@@ -29,7 +29,7 @@ public class BilliardBall extends QueObject {
 
     public BilliardBall(int num, Vec2 vecPos, World world){
         super("Ball" + num + ".png", 2.f, vecPos, world);
-        _physEng.setShape(new Shape(15.f));
+        _physEng.setShape(new Shape(GameConfig.BALL_RADIUS));
 
         setInputListener();
         setController();
@@ -160,7 +160,7 @@ public class BilliardBall extends QueObject {
                     System.out.println("방향 전환 : " + thing.getId());
 
                 Vec2 frictionAcc = thing.getAccComponent("마찰력");
-                thing.setAccComponent("마찰력", thing.getLinearSpeed().norm().opposite().multi(GameConfig.FRCITION_AMOUNT));
+                thing.setAccComponent("마찰력", thing.getLinearSpeed().norm().opposite().multi(GameConfig.FRICTION_AMOUNT));
 
                 if(thing.isComponentExist("수직스핀")) {
                     Vec2 verticalSpin = thing.getAccComponent("수직스핀");

@@ -50,9 +50,9 @@ public class GameMain implements Screen {
 		world1.getUniverse().setBorder(new Vec2(100, 110), new Vec2(440, 220), false);
 
 		_board = new BilliardBoard();
-		_ball1 = new BilliardBall(1, new Vec2(400.f, 220.f), world1);
-		_ball2 = new BilliardBall(2, new Vec2(250.f, 200.f), world1);
-		//_ball3 = new BilliardBall(3, new Vec2(100.f, 100.f), world1);
+		_ball1 = new BilliardBall(1, new Vec2(450.f, 260.f), world1);
+		_ball2 = new BilliardBall(2, new Vec2(220.f, 220.f), world1);
+		_ball3 = new BilliardBall(3, new Vec2(450.f, 220.f), world1);
 
 		_ball1.getEngine().setId("Ball1");
 		_ball2.getEngine().setId("Ball2");
@@ -65,9 +65,6 @@ public class GameMain implements Screen {
 		GameManager.getInstance().decider = _decider;
 
 		_cue = new Cue();
-
-		_ball1.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
-		_ball2.getEngine().setLinearSpeed(new Vec2(0.f, 0.f));
 
 		GameResource.getInstance().getDrawable("new_button");
 		Button spinBtn;
@@ -112,6 +109,7 @@ public class GameMain implements Screen {
 		world1.AddObject(spinBtn);
 		world1.AddObject(_ball1);
 		world1.AddObject(_ball2);
+		world1.AddObject(_ball3);
 
 		GameManager.getInstance().setCue(_cue);
 	}
