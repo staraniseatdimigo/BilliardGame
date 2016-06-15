@@ -40,10 +40,10 @@ public class Cue extends TexturedObject {
 
     public void realTimeCueEvent(){
         if(_targetBall != null){
+            float curX = Gdx.input.getX();
+            float curY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            Vec2 direction = new Vec2(curX, curY);
             if(Gdx.input.isKeyPressed(129) && Gdx.input.isTouched()){
-                float curX = Gdx.input.getX();
-                float curY = Gdx.graphics.getHeight() - Gdx.input.getY();
-                Vec2 direction = new Vec2(curX, curY);
                 _shotDirection = direction.minus(_targetBall.getEngine().getPosition());
                 Vec2 origin = new Vec2(0.f, -1.f);
 
@@ -51,18 +51,16 @@ public class Cue extends TexturedObject {
                 _fAngle = (float) Math.acos(cosvalue) * (_shotDirection.x >= 0 ? 1.f : -1.f);
             }
             else if(Gdx.input.isKeyPressed(59) && Gdx.input.isTouched()){
-                float curX = Gdx.input.getX();
-                float curY = Gdx.graphics.getHeight() - Gdx.input.getY();
-                Vec2 direction = new Vec2(curX, curY);
+                Vec2 newDir = direction.minus(_targetBall.getEngine().getPosition());
                 if (_oldDir == null)
-                    _oldDir = direction;
+                    _oldDir = newDir;
                 if(0.f <= _fScrolled && _fScrolled <= GameConfig.CUE_SCROLL_LIMIT)
-                    _fScrolled += (direction.getLength() - _oldDir.getLength());
+                    _fScrolled += (newDir.getLength() - _oldDir.getLength());
                 else if(_fScrolled > GameConfig.CUE_SCROLL_LIMIT)
                     _fScrolled = GameConfig.CUE_SCROLL_LIMIT;
                 else if(_fScrolled < 0.f)
                     _fScrolled = 0.f;
-                _oldDir = new Vec2(direction);
+                _oldDir = new Vec2(newDir);
             }
             else if(Gdx.input.isKeyPressed(66)){
                 Vec2 vecBallSpd = _shotDirection.norm().multi(-1.f * _fScrolled * GameConfig.CUE_POWER_FACTOR);

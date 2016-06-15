@@ -113,7 +113,6 @@ public class BilliardBall extends QueObject {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                GameMain._gameStep = 2;
                 if(Option.DEBUG_MODE) {
                     Debug.println("asd", "asd");
                     Stage stage = event.getTarget().getStage();
@@ -141,8 +140,7 @@ public class BilliardBall extends QueObject {
                 }
                 else {
                     final QueObject obj = (QueObject)event.getTarget();
-                    World world = obj.getWorld();
-                    final Cue cue = (Cue)(world.getStage().getActors().get(1));
+                    final Cue cue = GameManager.getInstance().getCue();
                     cue.setVisible(true);
                     cue.setTargetBall((BilliardBall)obj);
                 }

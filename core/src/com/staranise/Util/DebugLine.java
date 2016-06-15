@@ -14,7 +14,7 @@ public class DebugLine {
     private static ShapeRenderer debugRender = new ShapeRenderer();
 
     public static void RenderLine(Vec2 start, Vec2 end){
-        Gdx.gl.glLineWidth(3.f);
+        Gdx.gl.glLineWidth(1.f);
         debugRender.begin(ShapeRenderer.ShapeType.Line);
         debugRender.setProjectionMatrix(GameManager.getInstance().cam.combined);
         debugRender.setColor(Color.BLACK);

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.staranise.Basic.*;
+import com.staranise.Util.DebugLine;
 import com.staranise.thing.Vec2;
 
 //
@@ -27,8 +28,6 @@ public class GameMain implements Screen {
 	public GameMain(){
 		_temp = this;
 	}
-
-	public static int _gameStep = 0;
 
 	@Override
 	public void show () {
@@ -62,9 +61,10 @@ public class GameMain implements Screen {
 
 		_point.setVisible(false);
 
-		GameManager.getInstance().decider = _decider;
+		GameManager.getInstance().setSpinDecider(_decider);
 
 		_cue = new Cue();
+		GameManager.getInstance().setCue(_cue);
 
 		GameResource.getInstance().getDrawable("new_button");
 		Button spinBtn;
@@ -91,14 +91,19 @@ public class GameMain implements Screen {
 			}
 		});
 
+
 		world1.getStage().addListener(new DragListener(){
 			@Override
 			public void dragStop(InputEvent event, float x, float y, int pointer) {
 				super.dragStop(event, x, y, pointer);
-				if(_gameStep != 4)
-					_gameStep = 3;
-				else
-					_gameStep = 2;
+			}
+		});
+
+		world1.getStage().addListener(new InputListener(){
+			@Override
+			public boolean keyDown(InputEvent event, int keycode) {
+
+				return super.keyDown(event, keycode);
 			}
 		});
 
@@ -114,20 +119,18 @@ public class GameMain implements Screen {
 		GameManager.getInstance().setCue(_cue);
 	}
 
-	private void cueEvent(){
-		_cue.realTimeCueEvent(_gameStep);
-		if(_gameStep == 3)
-			_gameStep = 1;
-	}
-
 	@Override
 	public void render (float delta) {
+		Vec2 targetBallPos = GameManager.getInstance().getCue().getTargetBallPos();
+		Vec2 shotDirection = GameManager.getInstance().getCue().getDirection();
 		camera.update();
-		cueEvent();
+		_cue.realTimeCueEvent();
 
 		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		world1.Render(delta);
+		if(targetBallPos != null && shotDirection != null)
+			DebugLine.RenderLine(targetBallPos, Vec2.add(targetBallPos, shotDirection.multi(-10000.f)));
 	}
 
 	@Override

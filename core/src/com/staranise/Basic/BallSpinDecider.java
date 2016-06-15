@@ -19,6 +19,8 @@ public class BallSpinDecider extends TexturedObject {
     private float _fSpinY = 0.f;
     private static float _rootX = Gdx.graphics.getWidth() - 128.f;
 
+    private boolean _fDeciding = false;
+
     //private static final InputListener listener;
 
     public void setSpinPos(float spinX, float spinY){
@@ -38,7 +40,6 @@ public class BallSpinDecider extends TexturedObject {
         addListener(new InputListener(){
 
             private Actor _point;
-            private boolean _touched = false;
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -46,7 +47,7 @@ public class BallSpinDecider extends TexturedObject {
                 _point.setPosition(Gdx.graphics.getWidth()-90.f, 40.f);
                 _point.setVisible(true);
                 _point.setPosition(_rootX + x-26.f, y-26.f);
-                GameMain._gameStep = 4;
+                _fDeciding = true;
                 return true;
             }
 
@@ -54,7 +55,6 @@ public class BallSpinDecider extends TexturedObject {
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 if(0.f <= x && x <= _sprite.getWidth() && 0.f <= y && y <= _sprite.getHeight())
                     _point.setPosition(_rootX + x-26.f, y-26.f);
-                GameMain._gameStep = 4;
                 super.touchDragged(event, x, y, pointer);
             }
 
@@ -67,9 +67,14 @@ public class BallSpinDecider extends TexturedObject {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 _fSpinX = x-64.f;
                 _fSpinY = y-64.f;
+                _fDeciding = false;
                 super.touchUp(event, x, y, pointer, button);
             }
         });
+    }
+
+    public boolean isDeciding(){
+        return _fDeciding;
     }
 
     public float getSpinX(){

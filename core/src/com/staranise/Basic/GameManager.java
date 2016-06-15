@@ -19,7 +19,7 @@ public class GameManager {
     private float _fDeltaTime;
 
     public OrthographicCamera cam;
-    public BallSpinDecider decider;
+    private BallSpinDecider _decider;
 
     private boolean isOnGame = false;
 
@@ -32,6 +32,8 @@ public class GameManager {
     public void setCue(Cue cue){
         _cue = cue;
     }
+
+    public void setSpinDecider(BallSpinDecider decider) {_decider = decider;}
 
     public void setDeltaTime(float fDeltaTime){
         _fDeltaTime = fDeltaTime;
@@ -48,6 +50,8 @@ public class GameManager {
     public Cue getCue(){
         return _cue;
     }
+
+    public BallSpinDecider getSpinDecider(){return _decider;}
 
     //game initialize
     public void gameEntered() {
