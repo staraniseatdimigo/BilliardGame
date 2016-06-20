@@ -21,9 +21,9 @@ public class Thing {
     }
 
     private Map<String, Vec2> accComps = new HashMap<String, Vec2>();
-    protected Vec2 position = new Vec2(0,0);
-    protected Vec2 linearSpeed = new Vec2(0,0);
-    protected Vec2 acceleration = new Vec2(0,0);
+    public Vec2 position = new Vec2(0,0);
+    public Vec2 linearSpeed = new Vec2(0,0);
+    public Vec2 acceleration = new Vec2(0,0);
     protected float mass;
     protected Controller movementController = null;
     protected Controller stopController = null;

@@ -74,6 +74,10 @@ public class Universe {
             if(t1.getPosition().x <= borderOrigin.x || t1.getPosition().x >= borderOrigin.x + borderSize.x) {
                 // 내가 코딩을 못해서 일단 좀 드럽게 구현하는데 바꾸려면 바꾸셈
                 if(!borderOption) {
+                    if(t1.getPosition().x <= borderOrigin.x)
+                        t1.position.x = borderOrigin.x;
+                    else
+                        t1.position.x = borderOrigin.x + borderSize.x;
                     //collid event에서 스피드 값을 더할경우를 고려해 가장 자연스러운 상황에 맞게 만듬
                     Vec2 originSpd = t1.getLinearSpeed();
                     Vec2 resultSpd = new Vec2(-t1.getLinearSpeed().x, t1.getLinearSpeed().y);
@@ -85,8 +89,12 @@ public class Universe {
             }
 
             // y 범위 : 110.0 ~ 330.0
-            if(t1.getPosition().y <= borderOrigin.y || t1.getPosition().y >= borderOrigin.y + borderSize.y) {
+            else if(t1.getPosition().y <= borderOrigin.y || t1.getPosition().y >= borderOrigin.y + borderSize.y) {
                 if(!borderOption) {
+                    if(t1.getPosition().y <= borderOrigin.y)
+                        t1.position.y = borderOrigin.y;
+                    else
+                        t1.position.y = borderOrigin.y + borderSize.y;
                     Vec2 originSpd = t1.getLinearSpeed();
                     Vec2 resultSpd = new Vec2(t1.getLinearSpeed().x, -t1.getLinearSpeed().y);
                     t1.collideEventListener.collide(null, resultSpd.minus(t1.getLinearSpeed()));
