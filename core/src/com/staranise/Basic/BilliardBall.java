@@ -1,11 +1,13 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.staranise.GameMain;
 import com.staranise.thing.*;
+import com.staranise.thing.controllers.CollideEventListener;
+import com.staranise.thing.controllers.MovingController;
+import com.staranise.thing.controllers.StopController;
 import sun.security.ssl.Debug;
 
 import java.util.List;
@@ -151,13 +153,12 @@ public class BilliardBall extends QueObject {
     }
 
     public void setController() {
-        this.getEngine().setMovementController(new Controller() {
+        this.getEngine().setMovementController(new MovingController() {
             @Override
             public void control(Thing thing) {
-                //if(Option.DEBUG_MODE)
+                if(Option.DEBUG_MODE)
                     System.out.println("방향 전환 : " + thing.getId());
 
-                Vec2 frictionAcc = thing.getAccComponent("마찰력");
                 thing.setAccComponent("마찰력", thing.getLinearSpeed().norm().opposite().multi(GameConfig.FRICTION_AMOUNT));
 
                 if(thing.isComponentExist("수직스핀")) {
@@ -168,10 +169,11 @@ public class BilliardBall extends QueObject {
             }
         });
 
-        this.getEngine().setStopController(new Controller() {
+        this.getEngine().setStopController(new StopController() {
             @Override
             public void control(Thing thing) {
-                System.out.println("정지 : " + thing.getId());
+                if(Option.DEBUG_MODE)
+                    System.out.println("정지 : " + thing.getId());
                 thing.resetDynamic();
             }
         });

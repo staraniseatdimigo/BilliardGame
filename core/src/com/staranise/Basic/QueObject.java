@@ -1,13 +1,8 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.staranise.Util.DebugLine;
 import com.staranise.thing.Thing;
 import com.staranise.thing.Vec2;
 

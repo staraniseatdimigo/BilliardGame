@@ -1,4 +1,7 @@
-package com.staranise.thing;
+package com.staranise.thing.controllers;
+
+import com.staranise.thing.Thing;
+import com.staranise.thing.Vec2;
 
 import java.util.EventListener;
 

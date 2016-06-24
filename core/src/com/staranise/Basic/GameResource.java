@@ -1,4 +1,4 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;

@@ -1,6 +1,7 @@
 package com.staranise;
 
 import com.badlogic.gdx.Game;
+import com.staranise.screen.GameMain;
 
 /**
  * Created by 현성 on 2016-04-11..

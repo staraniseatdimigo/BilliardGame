@@ -1,9 +1,11 @@
 package com.staranise.thing;
 
-import com.staranise.Basic.GameManager;
-import com.staranise.Basic.Option;
+import com.staranise.basic.GameManager;
+import com.staranise.basic.Option;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by YuTack on 2016-04-08.
@@ -71,48 +73,37 @@ public class Universe {
             // x, y 범위값은 내가 보이는대로 대충 파란 영역 안으로 설정함 - 정확하게 바꾸는건 알아서.
             // x 범위 : 100.0 ~ 540.0
 
-            if(t1.getPosition().x <= borderOrigin.x || t1.getPosition().x >= borderOrigin.x + borderSize.x) {
+            if (t1.getPosition().x <= borderOrigin.x || t1.getPosition().x >= borderOrigin.x + borderSize.x) {
                 // 내가 코딩을 못해서 일단 좀 드럽게 구현하는데 바꾸려면 바꾸셈
-                if(!borderOption) {
-                    if(t1.getPosition().x <= borderOrigin.x)
-                        t1.position.x = borderOrigin.x;
-                    else
-                        t1.position.x = borderOrigin.x + borderSize.x;
+                if (!borderOption) {
                     //collid event에서 스피드 값을 더할경우를 고려해 가장 자연스러운 상황에 맞게 만듬
                     Vec2 originSpd = t1.getLinearSpeed();
                     Vec2 resultSpd = new Vec2(-t1.getLinearSpeed().x, t1.getLinearSpeed().y);
                     t1.collideEventListener.collide(null, resultSpd.minus(t1.getLinearSpeed()));
                     t1.addLinearSpeed(resultSpd.minus(originSpd));
-                }
-                else
+                } else
                     removeThing(t1);
             }
 
             // y 범위 : 110.0 ~ 330.0
-            else if(t1.getPosition().y <= borderOrigin.y || t1.getPosition().y >= borderOrigin.y + borderSize.y) {
-                if(!borderOption) {
-                    if(t1.getPosition().y <= borderOrigin.y)
-                        t1.position.y = borderOrigin.y;
-                    else
-                        t1.position.y = borderOrigin.y + borderSize.y;
+            if (t1.getPosition().y <= borderOrigin.y || t1.getPosition().y >= borderOrigin.y + borderSize.y) {
+                if (!borderOption) {
                     Vec2 originSpd = t1.getLinearSpeed();
                     Vec2 resultSpd = new Vec2(t1.getLinearSpeed().x, -t1.getLinearSpeed().y);
                     t1.collideEventListener.collide(null, resultSpd.minus(t1.getLinearSpeed()));
                     t1.addLinearSpeed(resultSpd.minus(originSpd));
-                }
-                else
+                } else
                     removeThing(t1);
             }
 
 
-            if(t1.getType() == Thing.ThingType.Dynamic) {
+            if (t1.getType() == Thing.ThingType.Dynamic) {
                 Vec2 futureSpd = t1.getLinearSpeed().add(t1.getAcceleration().multi(dt));
                 float fTargetVLen = t1.getLinearSpeed().getLength();
-                if(fTargetVLen > 0.5f) {
+                if (fTargetVLen > 0.5f) {
                     t1.executeMovementController();
                     eventChecker.put(t1, true);
-                }
-                else if((fTargetVLen < 0.5f || Vec2.isOpposite(t1.getLinearSpeed(), futureSpd))){
+                } else if ((fTargetVLen < 0.5f || Vec2.isOpposite(t1.getLinearSpeed(), futureSpd))) {
                     t1.executeStopController();
                     eventChecker.put(t1, false);
                 }
@@ -121,12 +112,12 @@ public class Universe {
                 t1.setPosition(t1.getPosition().add(t1.getLinearSpeed().multi(dt)));
             }
 
-            for(int j= i+1; j<things.size(); j++) {
+            for (int j = i + 1; j < things.size(); j++) {
                 //circle collision check
                 Thing t2 = things.get(j);
-                if(t1.getShape().getRadius() != -1 &&
+                if (t1.getShape().getRadius() != -1 &&
                         t1.getShape().radius + things.get(j).getShape().radius >
-                        t1.getPosition().getDistance(t2.getPosition())) {
+                                t1.getPosition().getDistance(t2.getPosition())) {
 
                     //t1이 기준 동체, t2가 대상 동체
                     Vec2 t1OriginSpd = t1.getLinearSpeed();
@@ -151,7 +142,7 @@ public class Universe {
                     t1.addLinearSpeed(t1ResultSpd.minus(t1OriginSpd));
                     t2.addLinearSpeed(t2ResultSpd.minus(t2OriginSpd));
 
-                    if(Option.DEBUG_MODE)
+                    if (Option.DEBUG_MODE)
                         System.out.println("충돌 : " + t1.getId() + "//" + t2.getId());
 
                     eventChecker.put(t1, false);

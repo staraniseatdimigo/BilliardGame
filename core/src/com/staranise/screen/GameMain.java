@@ -1,17 +1,14 @@
-package com.staranise;
+package com.staranise.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.staranise.Basic.*;
+import com.staranise.basic.*;
 import com.staranise.Util.DebugLine;
 import com.staranise.thing.Vec2;
 
@@ -31,7 +28,6 @@ public class GameMain implements Screen {
 
 	@Override
 	public void show () {
-
 		BilliardBoard _board;
 		BilliardBall _ball1;
 		BilliardBall _ball2;
@@ -46,12 +42,12 @@ public class GameMain implements Screen {
 		GameManager.getInstance().cam = camera;
 
 		world1 = new World(true, true);
-		world1.getUniverse().setBorder(new Vec2(100, 110), new Vec2(440, 220), false);
+		world1.getUniverse().setBorder(new Vec2(512-768/2, 384-384/2), new Vec2(768, 384), false);
 
 		_board = new BilliardBoard();
-		_ball1 = new BilliardBall(1, new Vec2(450.f, 260.f), world1);
-		_ball2 = new BilliardBall(2, new Vec2(220.f, 220.f), world1);
-		_ball3 = new BilliardBall(3, new Vec2(450.f, 220.f), world1);
+		_ball1 = new BilliardBall(1, new Vec2(512-768/2+384/2, 384), world1);
+		_ball2 = new BilliardBall(2, new Vec2(512+768/2-384/2, 384), world1);
+		_ball3 = new BilliardBall(3, new Vec2(512+768/2-384/2, 424), world1);
 
 		_ball1.getEngine().setId("Ball1");
 		_ball2.getEngine().setId("Ball2");
@@ -128,9 +124,22 @@ public class GameMain implements Screen {
 
 		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		int fps = Gdx.graphics.getFramesPerSecond();
+		long tester = System.currentTimeMillis();
 		world1.Render(delta);
 		if(targetBallPos != null && shotDirection != null)
-			DebugLine.RenderLine(targetBallPos, Vec2.add(targetBallPos, shotDirection.multi(-10000.f)));
+			DebugLine.RenderLine(targetBallPos, Vec2.add(targetBallPos, shotDirection.norm().multi(-10000.f)));
+		long dtm = (tester - System.currentTimeMillis());
+		int frameLimit = 60;
+		/*if(fps >= frameLimit){
+			try{
+				int sleepingTime = (int)((1/(float)frameLimit) * 1000.f - dtm);
+				Thread.sleep(sleepingTime);
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		}*/
 	}
 
 	@Override

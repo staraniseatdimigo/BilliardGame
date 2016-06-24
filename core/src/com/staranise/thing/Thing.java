@@ -1,7 +1,8 @@
 package com.staranise.thing;
 
-import com.badlogic.gdx.Gdx;
-import com.staranise.Basic.GameManager;
+import com.staranise.thing.controllers.CollideEventListener;
+import com.staranise.thing.controllers.MovingController;
+import com.staranise.thing.controllers.StopController;
 
 import java.util.*;
 
@@ -21,12 +22,12 @@ public class Thing {
     }
 
     private Map<String, Vec2> accComps = new HashMap<String, Vec2>();
-    public Vec2 position = new Vec2(0,0);
-    public Vec2 linearSpeed = new Vec2(0,0);
-    public Vec2 acceleration = new Vec2(0,0);
+    protected Vec2 position = new Vec2(0,0);
+    protected Vec2 linearSpeed = new Vec2(0,0);
+    protected Vec2 acceleration = new Vec2(0,0);
     protected float mass;
-    protected Controller movementController = null;
-    protected Controller stopController = null;
+    protected MovingController movementController = null;
+    protected StopController stopController = null;
 
     public CollideEventListener collideEventListener = null;
 
@@ -61,11 +62,11 @@ public class Thing {
         this.type = ThingType.Static;
     }
 
-    public void setMovementController(Controller controller){
+    public void setMovementController(MovingController controller){
         movementController = controller;
     }
 
-    public void setStopController(Controller controller){
+    public void setStopController(StopController controller){
         stopController = controller;
     }
 

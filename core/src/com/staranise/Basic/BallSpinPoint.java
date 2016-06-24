@@ -1,9 +1,7 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * Created by 현성 on 2016-04-24..
