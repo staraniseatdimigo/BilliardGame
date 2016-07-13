@@ -26,17 +26,18 @@ public class BilliardBall extends QueObject {
         this.horizontalSpin = horizontalSpin;
     }
 
-    //negative : unClockwise , postivie : clockwise
+    //negative : unClockwise , positive : clockwise
     private float horizontalSpin = 0;
 
-    public BilliardBall(int num, Vec2 vecPos, World world){
-        super("Ball" + num + ".png", 2.f, vecPos, world);
+    public BilliardBall(int num, Vec2 vecPos, World world, boolean bSagu){
+        super(bSagu ? "sagu" + num + ".png" : "Ball" + num + ".png", 2.f, vecPos, world);
         _physEng.setShape(new Shape(GameConfig.BALL_RADIUS));
 
         setInputListener();
         setController();
         setCollideEventListener();
     }
+
 
     public void setCollideEventListener() {
         this.getEngine().collideEventListener = new CollideEventListener() {
