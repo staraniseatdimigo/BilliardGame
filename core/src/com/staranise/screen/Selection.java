@@ -39,7 +39,15 @@ public class Selection implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                _game.setScreen(new GameMain());
+                _game.setScreen(new GameMain(4));
+            }
+        });
+
+        samgu.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                _game.setScreen(new GameMain(3));
             }
         });
 

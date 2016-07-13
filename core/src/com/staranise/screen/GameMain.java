@@ -18,23 +18,41 @@ public class GameMain implements Screen {
 	private World world1;
 	private Cue _cue;
 
+	private int _gameMode;
+
 	public static GameMain _temp = null;
 
 	private OrthographicCamera camera;
 
-	public GameMain(){
+	public GameMain(int gameMode){
 		_temp = this;
+		_gameMode = gameMode;
 	}
 
-	@Override
-	public void show () {
-		BilliardBoard _board;
-		final BallSpinDecider _decider;
+	private void fourBallModeInit(){
 		BilliardBall ball1 = new BilliardBall(1, new Vec2(512.f, 384.f), world1, true);
 		BilliardBall ball2 = new BilliardBall(2, new Vec2(512.f, 450.f), world1, true);
 		BilliardBall ball3 = new BilliardBall(3, new Vec2(600.f, 384.f), world1, true);
 		BilliardBall ball4 = new BilliardBall(3, new Vec2(400.f, 450.f), world1, true);
 
+		world1.AddObject(ball1);
+		world1.AddObject(ball2);
+		world1.AddObject(ball3);
+		world1.AddObject(ball4);
+	}
+
+	private void threeBallModeInit(){
+		BilliardBall ball1 = new BilliardBall(1, new Vec2(512.f, 384.f), world1, true);
+		BilliardBall ball2 = new BilliardBall(2, new Vec2(512.f, 450.f), world1, true);
+		BilliardBall ball3 = new BilliardBall(3, new Vec2(600.f, 384.f), world1, true);
+
+		world1.AddObject(ball1);
+		world1.AddObject(ball2);
+		world1.AddObject(ball3);
+	}
+
+	@Override
+	public void show () {
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.position.set(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f, 0);
 		camera.update();
@@ -44,26 +62,24 @@ public class GameMain implements Screen {
 		world1 = new World(true, true);
 		world1.getUniverse().setBorder(new Vec2(512-768/2, 384-384/2), new Vec2(768, 384), false);
 
-		_board = new BilliardBoard();
+		BilliardBoard board = new BilliardBoard();
+		BallSpinDecider decider = new BallSpinDecider();
 
-
-		_decider = new BallSpinDecider();
-
-		GameManager.getInstance().setSpinDecider(_decider);
+		GameManager.getInstance().setSpinDecider(decider);
 
 		_cue = new Cue();
 		GameManager.getInstance().setCue(_cue);
 
+		world1.AddObject(board);
+		world1.AddObject(decider);
 
-		world1.AddObject(_board);
+		if(_gameMode == 4){
+			fourBallModeInit();
+		}
+		else if(_gameMode == 3){
+			threeBallModeInit();
+		}
 		world1.AddObject(_cue);
-		world1.AddObject(_decider);
-		world1.AddObject(ball1);
-		world1.AddObject(ball2);
-		world1.AddObject(ball3);
-		world1.AddObject(ball4);
-
-		GameManager.getInstance().setCue(_cue);
 	}
 
 	@Override
@@ -75,22 +91,9 @@ public class GameMain implements Screen {
 
 		Gdx.gl.glClearColor(0.f, 0.f, 0.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		int fps = Gdx.graphics.getFramesPerSecond();
-		long tester = System.currentTimeMillis();
 		world1.Render(delta);
 		if(targetBallPos != null && shotDirection != null)
 			DebugLine.RenderLine(targetBallPos, Vec2.add(targetBallPos, shotDirection.norm().multi(-10000.f)));
-		long dtm = (tester - System.currentTimeMillis());
-		int frameLimit = 60;
-		/*if(fps >= frameLimit){
-			try{
-				int sleepingTime = (int)((1/(float)frameLimit) * 1000.f - dtm);
-				Thread.sleep(sleepingTime);
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-		}*/
 	}
 
 	@Override
