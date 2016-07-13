@@ -29,11 +29,11 @@ public class GameMain implements Screen {
 	@Override
 	public void show () {
 		BilliardBoard _board;
-		BilliardBall _ball1;
-		BilliardBall _ball2;
-		BilliardBall _ball3;
 		final BallSpinDecider _decider;
-		final BallSpinPoint _point;
+		BilliardBall ball1 = new BilliardBall(1, new Vec2(512.f, 384.f), world1, true);
+		BilliardBall ball2 = new BilliardBall(2, new Vec2(512.f, 450.f), world1, true);
+		BilliardBall ball3 = new BilliardBall(3, new Vec2(600.f, 384.f), world1, true);
+		BilliardBall ball4 = new BilliardBall(3, new Vec2(400.f, 450.f), world1, true);
 
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.position.set(Gdx.graphics.getWidth() / 2.f, Gdx.graphics.getHeight() / 2.f, 0);
@@ -45,72 +45,23 @@ public class GameMain implements Screen {
 		world1.getUniverse().setBorder(new Vec2(512-768/2, 384-384/2), new Vec2(768, 384), false);
 
 		_board = new BilliardBoard();
-		_ball1 = new BilliardBall(1, new Vec2(512-768/2+384/2, 384), world1);
-		_ball2 = new BilliardBall(2, new Vec2(512+768/2-384/2, 384), world1);
-		_ball3 = new BilliardBall(3, new Vec2(512+768/2-384/2, 424), world1);
 
-		_ball1.getEngine().setId("Ball1");
-		_ball2.getEngine().setId("Ball2");
 
 		_decider = new BallSpinDecider();
-		_point = new BallSpinPoint();
-
-		_point.setVisible(false);
 
 		GameManager.getInstance().setSpinDecider(_decider);
 
 		_cue = new Cue();
 		GameManager.getInstance().setCue(_cue);
 
-		GameResource.getInstance().getDrawable("new_button");
-		Button spinBtn;
-		Button.ButtonStyle spinBtnStyle = new Button.ButtonStyle();
-
-		spinBtnStyle.up = GameResource.getInstance().getDrawable("new_button");
-		spinBtnStyle.down = GameResource.getInstance().getDrawable("new_button_pressed");
-
-		spinBtn = new Button(spinBtnStyle);
-		spinBtn.addListener( new InputListener() {
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				return true;
-			}
-
-			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-				if(_decider.isVisible()) {
-					_decider.setVisible(false);
-					_point.setVisible(false);
-				}
-				else {
-					_decider.setVisible(true);
-					_point.setVisible(true);
-				}
-			}
-		});
-
-
-		world1.getStage().addListener(new DragListener(){
-			@Override
-			public void dragStop(InputEvent event, float x, float y, int pointer) {
-				super.dragStop(event, x, y, pointer);
-			}
-		});
-
-		world1.getStage().addListener(new InputListener(){
-			@Override
-			public boolean keyDown(InputEvent event, int keycode) {
-
-				return super.keyDown(event, keycode);
-			}
-		});
 
 		world1.AddObject(_board);
 		world1.AddObject(_cue);
 		world1.AddObject(_decider);
-		world1.AddObject(_point);
-		world1.AddObject(spinBtn);
-		world1.AddObject(_ball1);
-		world1.AddObject(_ball2);
-		world1.AddObject(_ball3);
+		world1.AddObject(ball1);
+		world1.AddObject(ball2);
+		world1.AddObject(ball3);
+		world1.AddObject(ball4);
 
 		GameManager.getInstance().setCue(_cue);
 	}
@@ -122,7 +73,7 @@ public class GameMain implements Screen {
 		camera.update();
 		_cue.realTimeCueEvent();
 
-		Gdx.gl.glClearColor(0.75f, 0.75f, 0.75f, 1);
+		Gdx.gl.glClearColor(0.f, 0.f, 0.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		int fps = Gdx.graphics.getFramesPerSecond();
 		long tester = System.currentTimeMillis();

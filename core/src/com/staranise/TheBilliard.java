@@ -2,19 +2,19 @@ package com.staranise;
 
 import com.badlogic.gdx.Game;
 import com.staranise.screen.GameMain;
+import com.staranise.screen.Selection;
 
 /**
  * Created by 현성 on 2016-04-11..
  */
 public class TheBilliard extends Game {
 
-    private GameMain gameMain;
+    private Selection selection;
 
     @Override
     public void create(){
-        gameMain = new GameMain();
-        gameMain.resize(1024, 768);
-        setScreen(gameMain);
+        selection = new Selection(this);
+        setScreen(selection);
     }
 
     @Override

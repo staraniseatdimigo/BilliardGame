@@ -8,7 +8,7 @@ public class GameConfig {
     public static final float CUE_POWER_FACTOR = 3.0f;
 
     //length of friction vector (acceleration)
-    public static final float FRICTION_AMOUNT = 80.0f;
+    public static final float FRICTION_AMOUNT = 120.0f;
 
     public static final float VERTICAL_SPIN_FACTOR = 10.0f;
     //about decreasing amount of acceleration component
@@ -17,8 +17,8 @@ public class GameConfig {
     public static final float HORIZONTAL_SPIN_FACTOR = 1.0f;
     public static final float HORIZONTAL_SPIN_DECREASE_AMOUNT = 5.0f;
 
-    public static final float BALL_RADIUS = 11.f;
+    public static final float BALL_RADIUS = 17.f;
 
-    public static final float CUE_SCROLL_LIMIT = 80.f;
+    public static final float CUE_SCROLL_LIMIT = 500.f;
 
 }

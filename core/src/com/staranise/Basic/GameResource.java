@@ -1,6 +1,7 @@
 package com.staranise.basic;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -23,11 +24,11 @@ public class GameResource {
     }
 
     private void init() {
-        skin = new Skin(new TextureAtlas("resources/skin.pack"));
+        skin = new Skin(Gdx.files.internal("resources/uiskin.json"));
     }
 
-    public Drawable getDrawable(String name) {
-        return skin.getDrawable(name);
+    public Skin getSkin(){
+        return skin;
     }
 
     public NinePatch getPatch(String name) {

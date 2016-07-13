@@ -35,7 +35,8 @@ public class World {
     }
 
     public void Render(float fDeltaTime){
-        _universe.flow(fDeltaTime);
+        if(_bUniverseExist)
+            _universe.flow(fDeltaTime);
         _stage.act(fDeltaTime);
         _stage.draw();
     }
