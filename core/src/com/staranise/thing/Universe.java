@@ -1,9 +1,8 @@
 package com.staranise.thing;
 
-import com.staranise.basic.GameManager;
-import com.staranise.basic.Option;
+import com.staranise.Basic.GameManager;
+import com.staranise.Basic.Option;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -41,6 +40,10 @@ public class Universe {
 
         things.add(thing);
         eventChecker.put(thing, false);
+    }
+
+    public List<Thing> getThings() {
+        return things;
     }
 
     public boolean removeThing(Thing thing) {

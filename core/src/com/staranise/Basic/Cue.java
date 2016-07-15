@@ -1,4 +1,4 @@
-package com.staranise.basic;
+package com.staranise.Basic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -61,6 +61,8 @@ public class Cue extends TexturedObject {
                 _oldDir = new Vec2(newDir);
             }
             else if(Gdx.input.isKeyPressed(66)){
+                HitChecker.makeHitChecker(_targetBall);
+
                 Vec2 vecBallSpd = _shotDirection.norm().multi(-1.f * _fScrolled * GameConfig.CUE_POWER_FACTOR);
 
                 BallSpinDecider decider = GameManager.getInstance().getSpinDecider();

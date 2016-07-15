@@ -5,13 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.staranise.basic.GameResource;
-import com.staranise.basic.World;
+import com.staranise.Basic.GameManager;
+import com.staranise.Basic.GameResource;
+import com.staranise.Basic.World;
 
 /**
  * Created by 현성 on 2016-07-13.
@@ -38,7 +38,7 @@ public class Selection implements Screen {
         sagu.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
+                GameManager.startNewGame(_game, 30, "player1", "player2", 4);
                 _game.setScreen(new GameMain(4));
             }
         });
@@ -47,7 +47,7 @@ public class Selection implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                _game.setScreen(new GameMain(3));
+                GameManager.startNewGame(_game, 30, "player1", "player2", 4);
             }
         });
 

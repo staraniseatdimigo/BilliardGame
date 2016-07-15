@@ -4,11 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.staranise.basic.*;
+import com.staranise.Basic.*;
 import com.staranise.Util.DebugLine;
 import com.staranise.thing.Vec2;
 
@@ -30,15 +26,29 @@ public class GameMain implements Screen {
 	}
 
 	private void fourBallModeInit(){
-		BilliardBall ball1 = new BilliardBall(1, new Vec2(512.f, 384.f), world1, true);
-		BilliardBall ball2 = new BilliardBall(2, new Vec2(512.f, 450.f), world1, true);
-		BilliardBall ball3 = new BilliardBall(3, new Vec2(600.f, 384.f), world1, true);
-		BilliardBall ball4 = new BilliardBall(3, new Vec2(400.f, 450.f), world1, true);
+		BilliardBall player1ball = new BilliardBall(1, new Vec2(512.f, 384.f), world1, true);
+		player1ball.setActive(true);
+		GameManager.getInstance().setPlayer1Ball(player1ball);
+		player1ball.getEngine().setId("player1");
 
+		BilliardBall player2ball = new BilliardBall(2, new Vec2(512.f, 450.f), world1, true);
+		GameManager.getInstance().setPlayer2Ball(player2ball);
+		player2ball.getEngine().setId("player2");
+
+		BilliardBall ball1 = new BilliardBall(3, new Vec2(600.f, 384.f), world1, true);
+		ball1.getEngine().setId("ball1");
+		BilliardBall ball2 = new BilliardBall(3, new Vec2(400.f, 450.f), world1, true);
+		ball2.getEngine().setId("ball2");
+
+//		GameManager.getInstance().addBilliardBall(player1ball);
+//		GameManager.getInstance().addBilliardBall(player2ball);
+//		GameManager.getInstance().addBilliardBall(ball1);
+//		GameManager.getInstance().addBilliardBall(ball2);
+//
+		world1.AddObject(player1ball);
+		world1.AddObject(player2ball);
 		world1.AddObject(ball1);
 		world1.AddObject(ball2);
-		world1.AddObject(ball3);
-		world1.AddObject(ball4);
 	}
 
 	private void threeBallModeInit(){
@@ -59,7 +69,12 @@ public class GameMain implements Screen {
 
 		GameManager.getInstance().cam = camera;
 
+		//world1 = GameManager.getInstance().getWorld();
+
 		world1 = new World(true, true);
+
+		GameManager.getInstance().setWorld(world1);
+
 		world1.getUniverse().setBorder(new Vec2(512-768/2, 384-384/2), new Vec2(768, 384), false);
 
 		BilliardBoard board = new BilliardBoard();
@@ -84,6 +99,11 @@ public class GameMain implements Screen {
 
 	@Override
 	public void render (float delta) {
+
+		if(HitChecker.getHitChecker() != null) {
+			HitChecker.getHitChecker().log();
+		}
+
 		Vec2 targetBallPos = GameManager.getInstance().getCue().getTargetBallPos();
 		Vec2 shotDirection = GameManager.getInstance().getCue().getDirection();
 		camera.update();

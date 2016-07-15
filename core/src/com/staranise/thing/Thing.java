@@ -11,7 +11,7 @@ import java.util.*;
  *
  * Thing Engine
  *
- * class Thing, basic class of all object in engine
+ * class Thing, Basic class of all object in engine
  *
  * kg, m, s.
  */

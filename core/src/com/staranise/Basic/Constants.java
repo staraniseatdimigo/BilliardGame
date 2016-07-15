@@ -1,4 +1,4 @@
-package com.staranise.basic;
+package com.staranise.Basic;
 
 import com.badlogic.gdx.math.Matrix4;
 

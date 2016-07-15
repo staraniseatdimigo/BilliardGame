@@ -1,4 +1,4 @@
-package com.staranise.basic;
+package com.staranise.Basic;
 
 /**
  * Created by YuTack on 2016-05-25.

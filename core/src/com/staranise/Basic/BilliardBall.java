@@ -1,4 +1,4 @@
-package com.staranise.basic;
+package com.staranise.Basic;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -9,8 +9,6 @@ import com.staranise.thing.controllers.CollideEventListener;
 import com.staranise.thing.controllers.MovingController;
 import com.staranise.thing.controllers.StopController;
 import sun.security.ssl.Debug;
-
-import java.util.List;
 
 /**
  * Created by 현성 on 2016-04-10.
@@ -29,6 +27,13 @@ public class BilliardBall extends QueObject {
     //negative : unClockwise , positive : clockwise
     private float horizontalSpin = 0;
 
+    //hit ball when valid player's turn
+    private boolean isActive = false;
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public BilliardBall(int num, Vec2 vecPos, World world, boolean bSagu){
         super(bSagu ? "sagu" + num + ".png" : "Ball" + num + ".png", 2.f, vecPos, world);
         _physEng.setShape(new Shape(GameConfig.BALL_RADIUS));
@@ -38,11 +43,18 @@ public class BilliardBall extends QueObject {
         setCollideEventListener();
     }
 
-
-    public void setCollideEventListener() {
+    private void setCollideEventListener() {
         this.getEngine().collideEventListener = new CollideEventListener() {
             @Override
             public void collide(Thing opponent, Vec2 impact) {
+
+                if(HitChecker.getHitChecker() != null && getEngine().getId().equals(HitChecker.getHitChecker().getHeroId())) {
+                    if(opponent == null)
+                        HitChecker.getHitChecker().notifyHeroHit("wall");
+                    else
+                        HitChecker.getHitChecker().notifyHeroHit(opponent.getId());
+                }
+
                 Vec2 spd = getEngine().getLinearSpeed(); // speed before collide
 
                 float originHspin = horizontalSpin;
@@ -59,40 +71,21 @@ public class BilliardBall extends QueObject {
                         directVec = new Vec2(-1, 0);
                     }
 
-                    //시계방향일때를 기준으로 방향을 정하고 시계 반대방향인 경우로 돌경우는 방향도 전부 반대일태니 이렇게함 제발되라 시발
+                    //시계방향일때를 기준으로 방향을 정하고 시계 반대방향인 경우로 돌경우는 방향도 전부 반대일태니 이렇게함
                     directVec = (horizontalSpin > 0) ? directVec.multi(1) : directVec.multi(-1);
 
                     getEngine().addLinearSpeed(directVec.multi(GameConfig.HORIZONTAL_SPIN_FACTOR * Math.abs(horizontalSpin)));
 
-//                    if(horizontalSpin > 0) {
-//                        if (impact.x > 0) { //왼쪽벽과 충돌
-//                            directVec = new Vec2(0, -1);
-//                        } else if (impact.x < 0) { //오른쪽벽과 충돌
-//                            directVec = new Vec2(0, 1);
-//                        } else if (impact.y > 0) { //아래쪽 벽과 충돌
-//                            directVec = new Vec2(1, 0);
-//                        } else { //위쪽벽과 충돌
-//                            directVec = new Vec2(-1, 0);
-//                        }
-//                    } else {
-//                        if (impact.x > 0) { //왼쪽벽과 충돌
-//
-//                        } else if (impact.x < 0) { //오른쪽벽과 충돌
-//
-//                        } else if (impact.y > 0) { //아래쪽 벽과 충돌
-//
-//                        } else { //위쪽벽과 충돌
-//
+                } else {
+
+                    //TODO: 게임 매니저에 world 안넣어서 스핀 감소 구현못함
+                    //TODO: 구조 근본적인 문제라 해결 미룸 여기서 게임 메인 안에 world에 접근하기도 용이치 않음 ㅡㅡ
+//                    List<BilliardBall> ballList = GameManager.getInstance().getBilliardBallList();
+//                    for(BilliardBall ball : ballList) {
+//                        if(ball.getEngine().getId().equals(opponent.getId())) {
+//                            ball.setHorizontalSpin(ball.getHorizontalSpin() - originHspin * 0.8f);
 //                        }
 //                    }
-
-                } else {
-                    List<BilliardBall> ballList = GameManager.getInstance().getBilliardBallList();
-                    for(BilliardBall ball : ballList) {
-                        if(ball.getEngine().getId().equals(opponent.getId())) {
-                            ball.setHorizontalSpin(ball.getHorizontalSpin() - originHspin * 0.8f);
-                        }
-                    }
                 }
 
                 //if(horizontalSpin != 0) {
@@ -141,7 +134,7 @@ public class BilliardBall extends QueObject {
                         }
                     });
                 }
-                else {
+                else if(isActive){
                     final QueObject obj = (QueObject)event.getTarget();
                     final Cue cue = GameManager.getInstance().getCue();
                     cue.setVisible(true);
