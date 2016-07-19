@@ -5,20 +5,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.staranise.Basic.GameManager;
-import com.staranise.Basic.GameResource;
-import com.staranise.Basic.World;
+import com.staranise.billiard.GameManager;
+import com.staranise.basic.GameResource;
 
 /**
  * Created by 현성 on 2016-07-13.
  */
 public class Selection implements Screen {
 
-    private World _world;
+    private Stage stage;
     private Game _game;
 
     public Selection(Game game){
@@ -27,6 +27,7 @@ public class Selection implements Screen {
 
     @Override
     public void show() {
+        stage = new Stage();
         Skin initialized = GameResource.getInstance().getSkin();
         TextButton backBtn = new TextButton("BACK", initialized, "default");
         ImageButton sagu = new ImageButton(initialized, "default");
@@ -39,7 +40,6 @@ public class Selection implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameManager.startNewGame(_game, 30, "player1", "player2", 4);
-                _game.setScreen(new GameMain(4));
             }
         });
 
@@ -47,7 +47,7 @@ public class Selection implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                GameManager.startNewGame(_game, 30, "player1", "player2", 4);
+                GameManager.startNewGame(_game, 30, "player1", "player2", 3);
             }
         });
 
@@ -58,19 +58,18 @@ public class Selection implements Screen {
         backBtn.setX(512.f - 101.f);
         backBtn.setY(150.f);
 
-        _world = new World(false, true);
+        stage.addActor(backBtn);
+        stage.addActor(sagu);
+        stage.addActor(samgu);
 
-        _world.AddObject(backBtn);
-        _world.AddObject(sagu);
-        _world.AddObject(samgu);
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        _world.Render(delta);
+        stage.draw();
     }
 
     @Override

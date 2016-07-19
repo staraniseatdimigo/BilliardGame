@@ -1,4 +1,4 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 /**
  * Created by 현성 on 2016-04-23..

@@ -11,11 +11,25 @@ import java.util.*;
  *
  * Thing Engine
  *
- * class Thing, Basic class of all object in engine
+ * class Thing, basic class of all object in engine
  *
  * kg, m, s.
  */
-public class Thing {
+public class Thing{
+
+    public float getHorizontalSpin() {
+        return horizontalSpin;
+    }
+
+    public void setHorizontalSpin(float horizontalSpin) {
+        this.horizontalSpin = horizontalSpin;
+    }
+
+    //negative : unClockwise , positive : clockwise
+    private float horizontalSpin = 0;
+
+    public void addHorizontalSpin(float horizontalSpin) {this.horizontalSpin += horizontalSpin;}
+
     public enum ThingType {
         Static, //zero speed
         Dynamic //normal one
@@ -31,12 +45,11 @@ public class Thing {
 
     public CollideEventListener collideEventListener = null;
 
-    private ThingType type;
+    protected ThingType type = ThingType.Dynamic;
 
     //use it when search Thing from universe, it should provide proper equals method
-    private String id;
+    protected String id;
 
-    private Shape shape;
     //private float? angluarVelocty;
 
     public Thing() {}
@@ -107,10 +120,6 @@ public class Thing {
         return accComps.containsKey(compName);
     }
 
-    public void setCircleShape(float radius) {
-        this.shape = new Shape(radius);
-    }
-
     ////
     public Vec2 getAcceleration() {
         return acceleration;
@@ -130,6 +139,7 @@ public class Thing {
     public void addLinearSpeed(Vec2 linearSpeed) { this.linearSpeed = this.linearSpeed.add(linearSpeed); }
 
     public void resetDynamic(){
+        horizontalSpin = 0.f;
         linearSpeed.setLength(0.f);
         acceleration.setLength(0.f);
         accComps.clear();
@@ -165,14 +175,6 @@ public class Thing {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Shape getShape() {
-        return shape;
-    }
-
-    public void setShape(Shape shape) {
-        this.shape = shape;
     }
 
 }

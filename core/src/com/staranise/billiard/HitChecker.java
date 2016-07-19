@@ -1,6 +1,7 @@
-package com.staranise.Basic;
+package com.staranise.billiard;
 
 import com.badlogic.gdx.Gdx;
+import com.staranise.basic.BilliardBall;
 
 /**
  * Created by YuTack on 2016-07-15.

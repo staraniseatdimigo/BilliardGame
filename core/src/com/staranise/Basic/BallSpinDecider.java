@@ -1,4 +1,4 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,41 +14,40 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class BallSpinDecider extends TexturedObject {
     private float _fSpinX = 0.f;
     private float _fSpinY = 0.f;
-    private static float _rootX = 512.f - 128.f / 2.f;
 
     private boolean _fDeciding = false;
 
     private BallSpinPoint _pointer = new BallSpinPoint();
 
-    //private static final InputListener listener;
-
-    public void setSpinPos(float spinX, float spinY){
-        _fSpinX = spinX;
-        _fSpinY = spinY;
-    }
+    private Sprite _ornamentation;
 
     public BallSpinDecider(){
         _sprite = new Sprite(new Texture("BallSpinDecider.png"));
-        _sprite.setCenter(512.f, 64.f);
-        _pointer.setPosition(512.f - 26.f, 64.f - 26.f);
+        _ornamentation = new Sprite(new Texture("BallSpinDecider_Ornament.png"));
+        _ornamentation.setCenter(512.f, 768.f - 678.f);
+        _pointer.setPosition(512.f - 26.f, 768.f - 678.f - 26.f);
+        setPosition(512.f - _sprite.getWidth()/2.f, 768.f - 678.f - _sprite.getHeight()/2.f);
 
         setWidth(_sprite.getWidth());
         setHeight(_sprite.getHeight());
-        setBounds(512.f -_sprite.getWidth() / 2.f, 0.f, _sprite.getWidth(), _sprite.getHeight());
+        setBounds(512.f -_sprite.getWidth() / 2.f, 768.f - 678.f - _sprite.getHeight()/2.f, _sprite.getWidth(), _sprite.getHeight());
 
         addListener(new InputListener(){
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                _pointer.setPosition(_rootX + x-26.f, y-26.f);
                 _fDeciding = true;
                 return true;
             }
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                if(0.f <= x && x <= 128.f && 0.f <= y && y <= 128.f)
-                    _pointer.setPosition(_rootX + x-26.f, y-26.f);
+                float realPosX = 512.f - _sprite.getWidth()/2.f + x;
+                float realPosY = 768.f - 678.f - _sprite.getHeight()/2.f + y;
+                float centeredX = x - 64.f;
+                float centeredY = y - 64.f;
+                if(Math.pow(centeredX, 2) + Math.pow(centeredY, 2) <= Math.pow(64.f, 2.f))
+                    _pointer.setPosition(realPosX - 26.f, realPosY - 26.f);
                 super.touchDragged(event, x, y, pointer);
             }
 
@@ -71,6 +70,7 @@ public class BallSpinDecider extends TexturedObject {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         _pointer.draw(batch, parentAlpha);
+        _ornamentation.draw(batch);
     }
 
     public boolean isDeciding(){

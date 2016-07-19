@@ -1,4 +1,4 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,14 +11,13 @@ import com.staranise.thing.Vec2;
  */
 public class QueObject extends TexturedObject{
     protected Thing _physEng;
-    protected World _world;
+    protected GNPBatchProcessor _GNPBatchProcessor;
 
-    public QueObject(String strImgPath, float fMass, Vec2 vecPosition, World world){
-        _physEng = new Thing(fMass, vecPosition);
+    public QueObject(String strImgPath, GNPBatchProcessor GNPBatchProcessor){
         _sprite = new Sprite(new Texture(strImgPath));
         setWidth(_sprite.getWidth());
         setHeight(_sprite.getHeight());
-        _world = world;
+        _GNPBatchProcessor = GNPBatchProcessor;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class QueObject extends TexturedObject{
     public Thing getEngine(){
         return _physEng;
     }
-    public World getWorld() { return _world; }
+    public GNPBatchProcessor getWorld() { return _GNPBatchProcessor; }
 
 
 }

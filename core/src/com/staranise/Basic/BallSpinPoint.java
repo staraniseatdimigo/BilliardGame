@@ -1,4 +1,4 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,9 +15,4 @@ public class BallSpinPoint extends TexturedObject {
         setHeight(_sprite.getHeight());
     }
 
-    @Override
-    public void setPosition(float x, float y) {
-        super.setPosition(x, y);
-        _sprite.setPosition(x, y);
-    }
 }

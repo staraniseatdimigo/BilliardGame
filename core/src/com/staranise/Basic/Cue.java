@@ -1,8 +1,10 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.staranise.billiard.GameManager;
+import com.staranise.billiard.HitChecker;
 import com.staranise.thing.Vec2;
 
 /**
@@ -72,7 +74,7 @@ public class Cue extends TexturedObject {
                 _targetBall.getEngine().setAccComponent("수직스핀", vecBallSpd.norm().multi(y * GameConfig.VERTICAL_SPIN_FACTOR));
                 _targetBall.getEngine().setLinearSpeed(vecBallSpd.multi(GameConfig.CUE_POWER_FACTOR));
 
-                _targetBall.setHorizontalSpin(-x);
+                _targetBall.getEngine().setHorizontalSpin(-x);
 
 
                 _fScrolled = 0.f;

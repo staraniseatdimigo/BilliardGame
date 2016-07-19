@@ -1,13 +1,16 @@
-package com.staranise.Basic;
+package com.staranise.basic;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.staranise.billiard.GameManager;
+import com.staranise.billiard.HitChecker;
 import com.staranise.thing.*;
 import com.staranise.thing.controllers.CollideEventListener;
 import com.staranise.thing.controllers.MovingController;
 import com.staranise.thing.controllers.StopController;
+import com.staranise.thing.shapes.Rect;
 import sun.security.ssl.Debug;
 
 /**
@@ -16,17 +19,6 @@ import sun.security.ssl.Debug;
  */
 public class BilliardBall extends QueObject {
 
-    public float getHorizontalSpin() {
-        return horizontalSpin;
-    }
-
-    public void setHorizontalSpin(float horizontalSpin) {
-        this.horizontalSpin = horizontalSpin;
-    }
-
-    //negative : unClockwise , positive : clockwise
-    private float horizontalSpin = 0;
-
     //hit ball when valid player's turn
     private boolean isActive = false;
 
@@ -34,9 +26,9 @@ public class BilliardBall extends QueObject {
         this.isActive = isActive;
     }
 
-    public BilliardBall(int num, Vec2 vecPos, World world, boolean bSagu){
-        super(bSagu ? "sagu" + num + ".png" : "Ball" + num + ".png", 2.f, vecPos, world);
-        _physEng.setShape(new Shape(GameConfig.BALL_RADIUS));
+    public BilliardBall(int num, Vec2 vecPos, GNPBatchProcessor GNPBatchProcessor, boolean bSagu){
+        super(bSagu ? "sagu" + num + ".png" : "Ball" + num + ".png", GNPBatchProcessor);
+        _physEng = new Ball(vecPos, new Vec2(), GameConfig.BALL_RADIUS);
 
         setInputListener();
         setController();
@@ -49,51 +41,11 @@ public class BilliardBall extends QueObject {
             public void collide(Thing opponent, Vec2 impact) {
 
                 if(HitChecker.getHitChecker() != null && getEngine().getId().equals(HitChecker.getHitChecker().getHeroId())) {
-                    if(opponent == null)
+                    if(Border.class.isInstance(opponent))
                         HitChecker.getHitChecker().notifyHeroHit("wall");
                     else
                         HitChecker.getHitChecker().notifyHeroHit(opponent.getId());
                 }
-
-                Vec2 spd = getEngine().getLinearSpeed(); // speed before collide
-
-                float originHspin = horizontalSpin;
-
-                if(opponent == null) { // collide with border
-                    Vec2 directVec;
-                    if (impact.x > 0) { //왼쪽벽과 충돌
-                        directVec = new Vec2(0, -1);
-                    } else if (impact.x < 0) { //오른쪽벽과 충돌
-                        directVec = new Vec2(0, 1);
-                    } else if (impact.y > 0) { //아래쪽 벽과 충돌
-                        directVec = new Vec2(1, 0);
-                    } else { //위쪽벽과 충돌
-                        directVec = new Vec2(-1, 0);
-                    }
-
-                    //시계방향일때를 기준으로 방향을 정하고 시계 반대방향인 경우로 돌경우는 방향도 전부 반대일태니 이렇게함
-                    directVec = (horizontalSpin > 0) ? directVec.multi(1) : directVec.multi(-1);
-
-                    getEngine().addLinearSpeed(directVec.multi(GameConfig.HORIZONTAL_SPIN_FACTOR * Math.abs(horizontalSpin)));
-
-                } else {
-
-                    //TODO: 게임 매니저에 world 안넣어서 스핀 감소 구현못함
-                    //TODO: 구조 근본적인 문제라 해결 미룸 여기서 게임 메인 안에 world에 접근하기도 용이치 않음 ㅡㅡ
-//                    List<BilliardBall> ballList = GameManager.getInstance().getBilliardBallList();
-//                    for(BilliardBall ball : ballList) {
-//                        if(ball.getEngine().getId().equals(opponent.getId())) {
-//                            ball.setHorizontalSpin(ball.getHorizontalSpin() - originHspin * 0.8f);
-//                        }
-//                    }
-                }
-
-                //if(horizontalSpin != 0) {
-                    horizontalSpin += (horizontalSpin > 0) ?
-                            -GameConfig.HORIZONTAL_SPIN_DECREASE_AMOUNT : GameConfig.HORIZONTAL_SPIN_DECREASE_AMOUNT;
-                    if (originHspin * horizontalSpin < 0) //넘 많이 빼서 방향바뀐경우
-                        horizontalSpin = 0;
-                //}
             }
         };
     }

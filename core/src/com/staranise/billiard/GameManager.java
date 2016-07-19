@@ -1,7 +1,11 @@
-package com.staranise.Basic;
+package com.staranise.billiard;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.staranise.basic.BallSpinDecider;
+import com.staranise.basic.BilliardBall;
+import com.staranise.basic.Cue;
+import com.staranise.basic.GNPBatchProcessor;
 import com.staranise.screen.GameMain;
 
 import java.util.ArrayList;
@@ -13,6 +17,18 @@ import java.util.List;
  * 게임 정보 저장, 관리, 모든 엑터 레퍼런스 저장
  */
 public class GameManager {
+
+    public interface ExecuteStepListener{
+        void executeStep(GAME_STEP player);
+    }
+
+    public interface HitSuccessListener{
+        void notifyHitSuccess(GAME_STEP player, boolean isThreeCushion);
+    }
+
+    public interface HitBadListener{
+        void notifyHitBad(GAME_STEP player);
+    }
 
     public enum GAME_STEP {
         player1,
@@ -27,7 +43,7 @@ public class GameManager {
         instance.player1point = defaultScore;
         instance.player2point = defaultScore;
         instance.gameMode = gameMode;
-        //instance.world = new World(true, true);
+        //instance.GNPBatchProcessor = new GNPBatchProcessor(true, true);
 
         instance.initGame(game);
     }
@@ -45,6 +61,10 @@ public class GameManager {
     private BilliardBall player1Ball;
     private BilliardBall player2Ball;
 
+    private ExecuteStepListener onExecuteStepListener = null;
+    private HitSuccessListener onHitSuccessListener = null;
+    private HitBadListener onHitBadListener = null;
+
     public void setPlayer1Ball(BilliardBall player1Ball) {
         this.player1Ball = player1Ball;
     }
@@ -59,19 +79,8 @@ public class GameManager {
         return ballList;
     }
 
-//    public void addBilliardBall(BilliardBall ball) {
-//        ballList.add(ball);
-//        world.AddObject(ball);
-//    }
-//
-//    public World getWorld() {
-//        return world;
-//    }
-//
-//    private World world;
-
-    private World world; // 게임 메인에서 set써주면 사용가능, 나중에 수정
-    public void setWorld(World world) { this.world = world; }
+    private com.staranise.basic.GNPBatchProcessor GNPBatchProcessor; // 게임 메인에서 set써주면 사용가능, 나중에 수정
+    public void setGNPBatchProcessor(GNPBatchProcessor GNPBatchProcessor) { this.GNPBatchProcessor = GNPBatchProcessor; }
 
     private Cue _cue;
     private float _fDeltaTime;
@@ -91,6 +100,18 @@ public class GameManager {
 
     private void initGame(Game game) {
         game.setScreen(new GameMain(gameMode));
+    }
+
+    public void setOnExecuteStepListener(ExecuteStepListener listener){
+        this.onExecuteStepListener = listener;
+    }
+
+    public void setOnHitSuccessListener(HitSuccessListener listener){
+        this.onHitSuccessListener = listener;
+    }
+
+    public void setOnHitBadListener(HitBadListener listener){
+        this.onHitBadListener = listener;
     }
 
     public void setCue(Cue cue) {
@@ -130,12 +151,18 @@ public class GameManager {
 
         if(_step == GAME_STEP.player1) { player2Ball.setActive(false); player1Ball.setActive(true); }
         else { player2Ball.setActive(true); player1Ball.setActive(false); }
+
+        if(onExecuteStepListener != null)
+            onExecuteStepListener.executeStep(_step);
     }
 
     // 점수주고 턴 안넘김
     public void notifyHitSuccess(boolean isThreeCushion) {
         if(_step == GAME_STEP.player1) player1point -= 10;
         else player2point -= 10;
+
+        if(onHitSuccessListener != null)
+            onHitSuccessListener.notifyHitSuccess(_step, isThreeCushion);
     }
 
     // 턴넘김
@@ -147,6 +174,8 @@ public class GameManager {
     public void notifyHitBad() {
         if(_step == GAME_STEP.player1) player1point += 10;
         else player2point += 10;
+
+        onHitBadListener.notifyHitBad(_step);
 
         executeStep();
     }

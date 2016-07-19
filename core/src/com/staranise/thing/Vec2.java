@@ -42,7 +42,7 @@ public class Vec2 {
 
     public Vec2 minus(Vec2 other) { return new Vec2(x - other.x, y - other.y); }
 
-    public static Vec2 minus(Vec2 v1, Vec2 v2) { return new Vec2(v1.x - v2.x, v1.x - v2.y); }
+    public static Vec2 minus(Vec2 v1, Vec2 v2) { return new Vec2(v1.x - v2.x, v1.y - v2.y); }
 
     //사이각
     public float getCos(Vec2 other) {
@@ -106,7 +106,7 @@ public class Vec2 {
         Vec2 v1Dir = v1.norm();
         Vec2 v2Dir = v2.norm();
         if(v1Dir.x * v2Dir.x >= 0 && v1Dir.y * v2Dir.y >= 0){
-            return Math.abs(v1Dir.x - v2Dir.x) < 0.1f && Math.abs(v1Dir.y - v2Dir.y) < 0.1f;
+            return Math.abs(v1Dir.x - v2Dir.x) < 0.3f && Math.abs(v1Dir.y - v2Dir.y) < 0.3f;
         }
         return false;
     }
